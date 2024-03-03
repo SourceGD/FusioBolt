@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="center_horizontal">
+
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_weight="2"
+        android:background="#767573"
+        android:gravity="center"
+        android:padding="4dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Question ?" />
+
+    <ImageView
+        android:id="@+id/fire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/feu" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/validityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_margin="8dp"
+            android:padding="16dp"
+            android:textSize="18sp"
+            tools:text="💪 Good Answer !"
+            android:textAlignment="textEnd"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+    </LinearLayout>
+
+</LinearLayout>

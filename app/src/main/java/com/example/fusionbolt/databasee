@@ -1,0 +1,10 @@
+Feu, ["Eau=Vapeur","Terre=Lave","Vent=Fumée"], drawable/feu.png
+Eau, ["Feu=Vapeur","Terre=Boue","Vent=Vague"], drawable/gouttes.png
+Terre, ["Feu=Lave","Eau=Boue","Vent=Poussière"], drawable/sol.png
+Vent, ["Feu=Lave","Eau=Vague","Terre=Poussière"], drawable/vent.png
+Vapeur, [], drawable/vapeur.png
+Lave, [], drawable/lave.png
+Fumée, [], drawable/fumee.png
+Boue, [], drawable/boue.png
+Vague, [], drawable/vagues.png
+Poussière, [], drawable/poussiere.png
