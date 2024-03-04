@@ -8,9 +8,51 @@
     android:background="@color/white"
     android:gravity="center_horizontal">
 
+    <LinearLayout
+        android:layout_width="394dp"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <ImageView
+            android:id="@+id/feu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/image_feu"
+            android:src="@drawable/feu" />
+
+        <ImageView
+            android:id="@+id/eau"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/image_eau"
+            android:src="@drawable/gouttes" />
+
+        <ImageView
+            android:id="@+id/terre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/image_terre"
+            android:src="@drawable/sol" />
+
+        <ImageView
+            android:id="@+id/vent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/image_vent"
+            android:src="@drawable/vent" />
+
+    </LinearLayout>
+
 
     <TextView
-        android:id="@+id/question"
+        android:id="@+id/Mix"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
@@ -21,15 +63,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:text="Question ?" />
-
-    <ImageView
-        android:id="@+id/fire"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/feu" />
+        android:text="Mix some elements here !" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,14 +76,15 @@
             android:id="@+id/validityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:background="@color/black"
             android:layout_margin="8dp"
             android:padding="16dp"
             android:textSize="18sp"
-            tools:text="💪 Good Answer !"
+            android:text=" 👨🏻‍🔬 New Discovery !"
             android:textAlignment="textEnd"
-            android:visibility="invisible"
-            tools:visibility="visible"/>
+            android:visibility="visible"
+            tools:visibility="visible" />
     </LinearLayout>
 
 </LinearLayout>

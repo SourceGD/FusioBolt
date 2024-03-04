@@ -14,10 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:text="appli"
+        android:text="FusionMix"
         android:layout_margin="24dp"
         android:padding="30dp"
-        android:background="#d2c2fd"/>
+        android:background="#6A0F8E "/>
 
     <EditText
         android:id="@+id/petitnom"
@@ -26,12 +26,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:minHeight="48dp"
-        android:hint="C'est quoi ton p'tit nom ?"/>
+        android:hint="What's you scientist name "/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Voici l'alpha de l'alpha de l'alpha"
+        android:text="Version 0.0.0.2"
         android:textSize="20sp"
         android:layout_margin="24dp"/>
 
@@ -42,6 +42,7 @@
         android:layout_margin="16dp"
         android:paddingHorizontal="24dp"
         android:textSize="14sp"
-        android:text="Let's play" />
+        android:text="Mixons !"
+        android:background="#ED1C24  "/>
 
 </LinearLayout>

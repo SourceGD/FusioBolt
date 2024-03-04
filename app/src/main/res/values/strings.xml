@@ -3,4 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fusionbolt">FusionBolt</string>
+    <string name="image_eau">image eau</string>
+    <string name="image_terre">image terre</string>
+    <string name="image_vent">image vent</string>
+    <string name="image_feu" />
 </resources>

@@ -58,6 +58,7 @@ public class WelcomeFragment extends Fragment {
             }
         });
 
+
         binding.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
