@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="Feu"
+            android:contentDescription="@string/Feu"
             android:src="@drawable/feu"
             android:tag="Feu" />
 
@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="Eau"
+            android:contentDescription="@string/Eau"
             android:src="@drawable/gouttes"
             android:tag="Eau" />
 
@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="Terre"
+            android:contentDescription="@string/Terre"
             android:src="@drawable/sol"
             android:tag="Terre" />
 
@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="Vent"
+            android:contentDescription="@string/Vent"
             android:src="@drawable/vent"
             android:tag="Vent" />
     </LinearLayout>
@@ -53,15 +53,15 @@
     <TextView
         android:id="@+id/Mix"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="481dp"
         android:layout_margin="16dp"
+        android:background="#767573"
         android:gravity="center"
         android:padding="4dp"
+        android:text="@string/mix_some_elements_here"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Mix some elements here !"
-        android:background="#767573"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/validityText"
@@ -72,7 +72,7 @@
         android:layout_margin="8dp"
         android:padding="16dp"
         android:textSize="18sp"
-        android:text=" 👨🏻‍🔬 New Discovery !"
+        android:text="@string/new_discovery"
         android:textAlignment="textEnd"
         android:visibility="visible"
         tools:visibility="visible" />

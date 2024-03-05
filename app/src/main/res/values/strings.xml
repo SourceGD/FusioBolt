@@ -7,4 +7,10 @@
     <string name="image_terre">image terre</string>
     <string name="image_vent">image vent</string>
     <string name="image_feu" />
+    <string name="Feu" />
+    <string name="Eau" />
+    <string name="Terre" />
+    <string name="Vent" />
+    <string name="mix_some_elements_here">Mix some elements here !</string>
+    <string name="new_discovery">👨🏻‍🔬 New Discovery !</string>
 </resources>
