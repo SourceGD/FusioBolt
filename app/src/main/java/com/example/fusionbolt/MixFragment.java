@@ -85,17 +85,14 @@ public class MixFragment extends Fragment {
                 ImageView imageView = new ImageView(getActivity());
                 imageView.setImageResource(imageResId);
 
-                // Récupèrez les dimensions depuis res/values/dimens.xml
                 int width = getResources().getDimensionPixelSize(R.dimen.image_width);
                 int height = getResources().getDimensionPixelSize(R.dimen.image_height);
 
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
                 imageView.setLayoutParams(params);
 
-                // Ajoutez l'ImageView au FrameLayout
                 binding.imageContainer.addView(imageView);
 
-                // Positionnez l'ImageView en ajustant pour centrer
                 imageView.setX(x - width / 2);
                 imageView.setY(y - height / 2);
             }

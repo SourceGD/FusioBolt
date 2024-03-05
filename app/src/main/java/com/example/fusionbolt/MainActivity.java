@@ -23,15 +23,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Accédez au fichier texte depuis le dossier 'assets'
         elements = Element.loadElementsFromAsset(getAssets(), "database.txt");
 
-        // Affichez les objets dans la console ou faites ce que vous souhaitez avec eux
         for (Element element : elements) {
             System.out.println("Nom : " + element.getName());
         }
     }
-    // ... (le reste du code inchangé)
 
 
     private ArrayList<Element> lireFichierTexte(String nomFichier) {
