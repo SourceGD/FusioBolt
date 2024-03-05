@@ -67,7 +67,7 @@
         android:layout_margin="8dp"
         android:padding="16dp"
         android:textSize="18sp"
-        android:text="@string/new_discovery"
+        android:text="@string/new_discoveryy"
         android:textAlignment="textEnd"
         android:visibility="visible"
         tools:visibility="visible" />
