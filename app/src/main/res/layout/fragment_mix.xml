@@ -2,89 +2,79 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MixContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     android:gravity="center_horizontal">
 
     <LinearLayout
-        android:layout_width="394dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/white"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:weightSum="4">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/feu"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="@string/image_feu"
-            android:src="@drawable/feu" />
+            android:contentDescription="Feu"
+            android:src="@drawable/feu"
+            android:tag="Feu" />
 
         <ImageView
             android:id="@+id/eau"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="@string/image_eau"
-            android:src="@drawable/gouttes" />
+            android:contentDescription="Eau"
+            android:src="@drawable/gouttes"
+            android:tag="Eau" />
 
         <ImageView
             android:id="@+id/terre"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="@string/image_terre"
-            android:src="@drawable/sol" />
+            android:contentDescription="Terre"
+            android:src="@drawable/sol"
+            android:tag="Terre" />
 
         <ImageView
             android:id="@+id/vent"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="@string/image_vent"
-            android:src="@drawable/vent" />
-
+            android:contentDescription="Vent"
+            android:src="@drawable/vent"
+            android:tag="Vent" />
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/Mix"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_weight="2"
-        android:background="#767573"
         android:gravity="center"
         android:padding="4dp"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Mix some elements here !" />
+        android:text="Mix some elements here !"
+        android:background="#767573"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/validityText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:layout_margin="8dp"
-            android:padding="16dp"
-            android:textSize="18sp"
-            android:text=" 👨🏻‍🔬 New Discovery !"
-            android:textAlignment="textEnd"
-            android:visibility="visible"
-            tools:visibility="visible" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/validityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:layout_margin="8dp"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:text=" 👨🏻‍🔬 New Discovery !"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        tools:visibility="visible" />
 
 </LinearLayout>
