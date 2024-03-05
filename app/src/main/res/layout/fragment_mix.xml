@@ -50,18 +50,13 @@
             android:tag="Vent" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/Mix"
-        android:layout_width="match_parent"
-        android:layout_height="481dp"
-        android:layout_margin="16dp"
-        android:background="#767573"
-        android:gravity="center"
-        android:padding="4dp"
-        android:text="@string/mix_some_elements_here"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    <FrameLayout
+        android:id="@+id/imageContainer"
+        android:layout_width="400dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="20dp">
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/validityText"
@@ -72,7 +67,7 @@
         android:layout_margin="8dp"
         android:padding="16dp"
         android:textSize="18sp"
-        android:text="@string/new_discovery!!!"
+        android:text="@string/new_discovery"
         android:textAlignment="textEnd"
         android:visibility="visible"
         tools:visibility="visible" />

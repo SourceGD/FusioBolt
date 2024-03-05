@@ -6,15 +6,21 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.fusionbolt.databinding.FragmentMixBinding;
 
+import java.util.ArrayList;
+
 public class MixFragment extends Fragment {
 
+    private ArrayList<Element> elements;
     private FragmentMixBinding binding;
 
     @Override
@@ -26,6 +32,8 @@ public class MixFragment extends Fragment {
         setupDragAndDrop(binding.eau);
         setupDragAndDrop(binding.terre);
         setupDragAndDrop(binding.vent);
+
+        elements = ((MainActivity) getActivity()).elements;
 
         return binding.getRoot();
     }
@@ -49,13 +57,17 @@ public class MixFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.Mix.setOnDragListener(new View.OnDragListener() {
+        binding.imageContainer.setOnDragListener(new View.OnDragListener() {
             @Override
             public boolean onDrag(View v, DragEvent event) {
-                int action = event.getAction();
+                final int action = event.getAction();
                 switch (action) {
                     case DragEvent.ACTION_DROP:
-                        handleDropEvent((ImageView) event.getLocalState());
+                        // Obtenez les coordonnées x, y du drop
+                        float x = event.getX();
+                        float y = event.getY();
+
+                        handleDropEvent((ImageView) event.getLocalState(), x, y);
                         return true;
                     default:
                         return true;
@@ -64,17 +76,47 @@ public class MixFragment extends Fragment {
         });
     }
 
-    private void handleDropEvent(ImageView draggedImageView) {
-        String elementName = (String) draggedImageView.getTag();
+    private void handleDropEvent(ImageView draggedImageView, float x, float y) {
+        Element droppedElement = findElementByName((String) draggedImageView.getTag());
 
-        // Display the name of the dropped element in the Mix TextView
-        String currentText = binding.Mix.getText().toString();
-        if (!currentText.isEmpty()) {
-            currentText += ", ";
+        if (droppedElement != null) {
+            int imageResId = getResources().getIdentifier(droppedElement.getLogo().replace(".png", ""), "drawable", getActivity().getPackageName());
+            if (imageResId != 0) {
+                ImageView imageView = new ImageView(getActivity());
+                imageView.setImageResource(imageResId);
+
+                // Récupèrez les dimensions depuis res/values/dimens.xml
+                int width = getResources().getDimensionPixelSize(R.dimen.image_width);
+                int height = getResources().getDimensionPixelSize(R.dimen.image_height);
+
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+                imageView.setLayoutParams(params);
+
+                // Ajoutez l'ImageView au FrameLayout
+                binding.imageContainer.addView(imageView);
+
+                // Positionnez l'ImageView en ajustant pour centrer
+                imageView.setX(x - width / 2);
+                imageView.setY(y - height / 2);
+            }
         }
-        currentText += elementName;
-
-        binding.Mix.setText(currentText);
     }
+
+
+    private Element findElementByName(String elementName) {
+        if (elements == null) {
+            return null;
+        }
+        for (Element element : elements) {
+            if (element.getName().equals(elementName)) {
+                return element;
+            }
+        }
+        return null;
+    }
+
+
+
+
 }
 
