@@ -7,16 +7,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Element {
 
     private String name;
-    private String[] propriety;
+    private HashMap<String,String> propriety;
     private String logo; // chemin du logo
 
-    public Element(String name, String[] propriety, String logo) {
+    public Element(String name, HashMap<String,String> propriety, String logo) {
         this.name = name;
         this.propriety = propriety;
+
         this.logo = logo;
     }
 
@@ -28,36 +30,42 @@ public class Element {
         return name;
     }
 
-    public String[] getPropriety() {
+    public HashMap<String,String> getPropriety() {
         return propriety;
     }
 
-    public static ArrayList<Element> loadElementsFromAsset(AssetManager assetManager, String fileName) {
+    public static ArrayList<Element> initData(){
+
         ArrayList<Element> elements = new ArrayList<>();
 
-        try {
-            InputStream inputStream = assetManager.open(fileName);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(", ");
-                if (data.length == 3) {
-                    String name = data[0];
-                    String propertiesString = data[1].replace("[", "").replace("]", "");
-                    String[] properties = propertiesString.split(",");
-                    String logo = data[2];
-
-                    Element element = new Element(name, properties, logo);
-                    elements.add(element);
-                }
-            }
-
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        elements.add(new Element("Feu", new HashMap<String, String>() {{
+            put("Eau","Vapeur");
+            put("Terre","Lave");
+            put("Vent","Fume");
+        }},"drawable/feu.png"));
+        elements.add(new Element("Eau",new HashMap<String, String>() {{
+            put("Feu","Vapeur");
+            put("Terre","Boue");
+            put("Vent","Vague");
+        }},"drawable/gouttes.png"));
+        elements.add(new Element("Terre",new HashMap<String, String>() {{
+            put("Feu","Lave");
+            put("Eau","Boue");
+            put("Vent","Dust");
+        }},"drawable/sol.png"));
+        elements.add(new Element("Vent",new HashMap<String, String>() {{
+            put("Feu","Fume");
+            put("Eau","Vague");
+            put("Terre","Dust");
+        }},"drawable/vent.png"));
+        elements.add(new Element("Vapeur", new HashMap<String, String>() {},"drawable/vapeur.png"));
+        elements.add(new Element("Lave", new HashMap<String, String>() {},"drawable/lave.png"));
+        elements.add(new Element("Fume", new HashMap<String, String>() {},"drawable/fume.png"));
+        elements.add(new Element("Boue", new HashMap<String, String>() {},"drawable/boue.png"));
+        elements.add(new Element("Vague", new HashMap<String, String>() {},"drawable/vagues.png"));
+        elements.add(new Element("Dust", new HashMap<String, String>() {},"drawable/dust.png"));
 
         return elements;
+
     }
 }
