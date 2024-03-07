@@ -2,7 +2,6 @@ package com.example.fusionbolt;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -34,8 +33,15 @@ public class MixFragment extends Fragment {
         setupDragAndDrop(binding.eau);
         setupDragAndDrop(binding.terre);
         setupDragAndDrop(binding.vent);
+        setupDragAndDrop(binding.boue);
+        setupDragAndDrop(binding.dust);
+        setupDragAndDrop(binding.fume);
+        setupDragAndDrop(binding.lave);
+        setupDragAndDrop(binding.terre);
+        setupDragAndDrop(binding.vague);
+        setupDragAndDrop(binding.vapeur);
 
-        elements = ((MainActivity) getActivity()).elements;
+        elements = Element.initData();
 
         return binding.getRoot();
     }
@@ -119,8 +125,6 @@ public class MixFragment extends Fragment {
                     }
                 });
 
-
-
                 binding.imageContainer.addView(imageView);
 
                 imageView.setX(x - width / 2);
@@ -128,8 +132,6 @@ public class MixFragment extends Fragment {
             }
         }
     }
-
-
 
     private Element findElementByName(String elementName) {
         if (elements == null) {
@@ -142,9 +144,5 @@ public class MixFragment extends Fragment {
         }
         return null;
     }
-
-
-
-
 }
 

@@ -21,8 +21,7 @@ public class WelcomeFragment extends Fragment {
 
     private FragmentWelcomeBinding binding;
     public static WelcomeFragment newInstance() {
-        WelcomeFragment fragment = new WelcomeFragment();
-        return fragment;
+        return new WelcomeFragment();
     }
 
     @Override
@@ -46,11 +45,9 @@ public class WelcomeFragment extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 binding.playButton.setEnabled(!s.toString().isEmpty());
