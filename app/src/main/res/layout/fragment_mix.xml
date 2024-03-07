@@ -55,6 +55,58 @@
         android:layout_width="400dp"
         android:layout_height="500dp"
         android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/boue"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/Vent"
+            android:src="@drawable/boue"
+            android:tag="Boue"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/fume"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/Vent"
+            android:src="@drawable/fume"
+            android:tag="Fume"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/lave"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/Vent"
+            android:src="@drawable/lave"
+            android:tag="Lave"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/vapeur"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/Vent"
+            android:src="@drawable/vapeur"
+            android:tag="Vapeur"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/vague"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/Vent"
+            android:src="@drawable/vague"
+            android:tag="Vague"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/dust"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/Vent"
+            android:src="@drawable/dust"
+            android:tag="Dust"
+            android:visibility="gone"/>
+
+
+
     </FrameLayout>
 
 

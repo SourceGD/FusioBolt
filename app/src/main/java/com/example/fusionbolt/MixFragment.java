@@ -1,6 +1,8 @@
 package com.example.fusionbolt;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -38,6 +40,7 @@ public class MixFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupDragAndDrop(ImageView imageView) {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -63,7 +66,6 @@ public class MixFragment extends Fragment {
                 final int action = event.getAction();
                 switch (action) {
                     case DragEvent.ACTION_DROP:
-                        // Obtenez les coordonnées x, y du drop
                         float x = event.getX();
                         float y = event.getY();
 
@@ -76,6 +78,7 @@ public class MixFragment extends Fragment {
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void handleDropEvent(ImageView draggedImageView, float x, float y) {
         Element droppedElement = findElementByName((String) draggedImageView.getTag());
 
@@ -91,6 +94,33 @@ public class MixFragment extends Fragment {
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
                 imageView.setLayoutParams(params);
 
+                imageView.setOnTouchListener(new View.OnTouchListener() {
+                    private float initialX, initialY;
+                    private int initialTouchX, initialTouchY;
+
+                    @SuppressLint("ClickableViewAccessibility")
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                initialX = v.getX();
+                                initialY = v.getY();
+                                initialTouchX = (int) event.getRawX();
+                                initialTouchY = (int) event.getRawY();
+                                return true;
+                            case MotionEvent.ACTION_MOVE:
+                                float deltaX = event.getRawX() - initialTouchX;
+                                float deltaY = event.getRawY() - initialTouchY;
+                                v.setX(initialX + deltaX);
+                                v.setY(initialY + deltaY);
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+
+
+
                 binding.imageContainer.addView(imageView);
 
                 imageView.setX(x - width / 2);
@@ -98,6 +128,7 @@ public class MixFragment extends Fragment {
             }
         }
     }
+
 
 
     private Element findElementByName(String elementName) {
