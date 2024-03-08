@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
         for (Element element : elements) {
             System.out.println("Nom : " + element.getName());
-            System.out.println("fusions : " + element.getPropriety() );
+            for (Map.Entry<Element, Element> entry : element.getPropriety().entrySet()) {
+                Element key = entry.getKey();
+                Element value = entry.getValue();
+                System.out.println("Clé : " + key.getName() + ", Valeur : " + value.getName());
+            }
         }
     }
 }
