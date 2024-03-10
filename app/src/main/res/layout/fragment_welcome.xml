@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".WelcomeFragment"
     android:gravity="center"
-    android:background="@drawable/chimiste2">
+    android:background="@drawable/fond1">
 
 
 

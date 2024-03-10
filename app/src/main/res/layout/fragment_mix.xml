@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/MixContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:background="@drawable/fond2"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +63,8 @@
             android:contentDescription="@string/Vent"
             android:src="@drawable/boue"
             android:tag="Boue"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/fume"
             android:layout_width="100dp"
@@ -71,7 +72,8 @@
             android:contentDescription="@string/Vent"
             android:src="@drawable/fume"
             android:tag="Fume"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/lave"
             android:layout_width="100dp"
@@ -79,7 +81,8 @@
             android:contentDescription="@string/Vent"
             android:src="@drawable/lave"
             android:tag="Lave"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/vapeur"
             android:layout_width="100dp"
@@ -87,7 +90,8 @@
             android:contentDescription="@string/Vent"
             android:src="@drawable/vapeur"
             android:tag="Vapeur"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/vague"
             android:layout_width="100dp"
@@ -95,7 +99,8 @@
             android:contentDescription="@string/Vent"
             android:src="@drawable/vague"
             android:tag="Vague"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/dust"
             android:layout_width="100dp"
@@ -103,8 +108,7 @@
             android:contentDescription="@string/Vent"
             android:src="@drawable/dust"
             android:tag="Dust"
-            android:visibility="gone"/>
-
+            android:visibility="gone" />
 
 
     </FrameLayout>
@@ -114,13 +118,13 @@
         android:id="@+id/validityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@color/black"
         android:layout_margin="8dp"
+        android:background="@color/black"
         android:padding="16dp"
-        android:textSize="18sp"
         android:text="@string/new_discovery"
         android:textAlignment="textEnd"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         android:visibility="visible"
         tools:visibility="visible" />
 
