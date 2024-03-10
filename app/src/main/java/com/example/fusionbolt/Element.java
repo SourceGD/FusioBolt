@@ -98,7 +98,7 @@ public class Element {
 
     public static Element getVague() {
         if (vague == null) {
-            vague = new Element("Vague", new HashMap<>(), "drawable/vagues.png");
+            vague = new Element("Vague", new HashMap<>(), "drawable/vague.png");
         }
         return vague;
     }

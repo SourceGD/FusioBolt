@@ -18,6 +18,10 @@ import androidx.fragment.app.Fragment;
 import com.example.fusionbolt.databinding.FragmentMixBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MixFragment extends Fragment {
 
@@ -27,6 +31,8 @@ public class MixFragment extends Fragment {
 
     private float initialX, initialY;
     private int initialTouchX, initialTouchY;
+
+    public HashMap<Element, ArrayList<int[]>> onDisplay = new HashMap<>();
 
 
     @Override
@@ -80,7 +86,7 @@ public class MixFragment extends Fragment {
                         float x = event.getX();
                         float y = event.getY();
 
-                        handleDropEvent((ImageView) event.getLocalState(), x, y);
+                        handleDropEvent((ImageView) event.getLocalState(), x, y, 1);
                         return true;
                     default:
                         return true;
@@ -95,8 +101,13 @@ public class MixFragment extends Fragment {
         }
         return null;
     }
-    private void displayElementInView(Element element, float x, float y) {
+
+    private int displayElementInView(Element element, float x, float y) {
         int imageResId = getResources().getIdentifier(element.getLogo().replace(".png", ""), "drawable", getActivity().getPackageName());
+
+
+
+
         if (imageResId != 0) {
             ImageView imageView = new ImageView(getActivity());
             imageView.setImageResource(imageResId);
@@ -107,67 +118,164 @@ public class MixFragment extends Fragment {
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
             imageView.setLayoutParams(params);
 
+            int viewId = View.generateViewId();
+            imageView.setId(viewId);
+
             binding.imageContainer.addView(imageView);
 
             imageView.setX(x - width / 2);
             imageView.setY(y - height / 2);
+            return viewId;
+        }
+
+        return -1;
+    }
+
+    public void removeImageView(int imageViewId) {
+        View imageViewToRemove = binding.imageContainer.findViewById(imageViewId);
+        if (imageViewToRemove != null) {
+            binding.imageContainer.removeView(imageViewToRemove);
         }
     }
+
+
+    private int convertPositionToId(float x, float y) {
+        int maxWidth = binding.imageContainer.getWidth();
+
+        int xi = (int)x;
+        int yi = (int)y;
+        return yi * maxWidth + xi;
+    }
+    public int findPositionIndex(ArrayList<int[]> positions, int[] targetPosition) {
+        for (int i = 0; i < positions.size(); i++) {
+            if (Arrays.equals(positions.get(i), targetPosition)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 
     @SuppressLint("ClickableViewAccessibility")
-    private void handleDropEvent(ImageView draggedImageView, float x, float y) {
-        Element droppedElement = findElementByName((String) draggedImageView.getTag());
+    private void handleDropEvent(ImageView draggedImageView, float x, float y, int path) {
+        switch (path){
+            case 1:
+                Element droppedElement = findElementByName((String) draggedImageView.getTag());
 
-        if (selectedElement == null) {
-            selectedElement = droppedElement;
-            displayElementInView(droppedElement, x, y);
-        } else {
-            Element newElement = mixThem(selectedElement, droppedElement);
+                int ind = 0;
+                Element existingElement = null;
+                for (Element element : onDisplay.keySet()) {
+                    for (int[] position : onDisplay.get(element)) {
 
-            if (newElement != null) {
-                int imageResId = getResources().getIdentifier(newElement.getLogo().replace(".png", ""), "drawable", getActivity().getPackageName());
-                if (imageResId != 0) {
-                    ImageView imageView = new ImageView(getActivity());
-                    imageView.setImageResource(imageResId);
-
-                    int width = getResources().getDimensionPixelSize(R.dimen.image_width);
-                    int height = getResources().getDimensionPixelSize(R.dimen.image_height);
-
-                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-                    imageView.setLayoutParams(params);
-
-                    imageView.setOnTouchListener(new View.OnTouchListener() {
-                        @SuppressLint("ClickableViewAccessibility")
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            switch (event.getAction()) {
-                                case MotionEvent.ACTION_DOWN:
-                                    initialX = v.getX();
-                                    initialY = v.getY();
-                                    initialTouchX = (int) event.getRawX();
-                                    initialTouchY = (int) event.getRawY();
-                                    return true;
-                                case MotionEvent.ACTION_MOVE:
-                                    float deltaX = event.getRawX() - initialTouchX;
-                                    float deltaY = event.getRawY() - initialTouchY;
-                                    v.setX(initialX + deltaX);
-                                    v.setY(initialY + deltaY);
-                                    return true;
-                            }
-                            return false;
+                        if (position[0] <= (int) x + 200 && position[0] >= (int) x - 200 && position[1] <= (int) y + 200 && position[1] >= (int) y - 200) {
+                            existingElement = element;
+                            ind = findPositionIndex(onDisplay.get(element), position);
+                            break;
                         }
-                    });
-
-                    binding.imageContainer.addView(imageView);
-
-                    imageView.setX(x - width / 2);
-                    imageView.setY(y - height / 2);
+                    }
                 }
-            }
 
-            selectedElement = null;
+                if (existingElement != null) {
+                    Element newElement = mixThem(existingElement, droppedElement);
+                    if (newElement != null) {
+
+                        ArrayList<int[]> remove1 = onDisplay.get(existingElement);
+                        int[] indexxx = remove1.get(ind);
+                        removeImageView(indexxx[2]);
+                        remove1.remove(ind);
+                        onDisplay.put(existingElement,remove1);
+
+                        if(onDisplay.containsKey(newElement)) {
+                            int idd = displayElementInView(newElement, x, y);
+                            ArrayList<int[]> updaton = onDisplay.get(newElement);
+                            updaton.add(new int[]{(int) x, (int) y, idd});
+                            ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+                            setupTouchListener(imageView);
+                            onDisplay.put(newElement, updaton);
+                        }else{
+                            int idd = displayElementInView(newElement, x, y);
+                            ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+                            setupTouchListener(imageView);
+                            ArrayList<int[]> nouvau = new ArrayList<>();
+                            nouvau.add(new int[]{(int) x, (int) y, idd});
+                            onDisplay.put(newElement, nouvau);
+                        }
+                    }
+                } else {
+                    if(onDisplay.containsKey(droppedElement)) {
+                        int idd = displayElementInView(droppedElement, x, y);
+                        ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+                        setupTouchListener(imageView);
+                        ArrayList<int[]> updaton = onDisplay.get(droppedElement);
+                        updaton.add(new int[]{(int) x, (int) y, idd});
+                        onDisplay.put(droppedElement, updaton);
+                    }else{
+                        int idd = displayElementInView(droppedElement, x, y);
+                        ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+                        setupTouchListener(imageView);
+                        ArrayList<int[]> nouvau = new ArrayList<>();
+                        nouvau.add(new int[]{(int) x, (int) y, idd});
+                        onDisplay.put(droppedElement, nouvau);
+                    }
+                }
+            case 2:
+                return;
         }
     }
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupTouchListener(ImageView imageView) {
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        initialTouchX = (int)event.getX();
+                        initialTouchY = (int)event.getY();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        // Calculate the distance moved
+                        float deltaX = event.getX() - initialTouchX;
+                        float deltaY = event.getY() - initialTouchY;
+                        // Update the ImageView's position
+                        float newX = imageView.getX() + deltaX;
+                        float newY = imageView.getY() + deltaY;
+
+                        imageView.setX(newX);
+                        imageView.setY(newY);
+
+                        // Update position in onDisplay map
+                        updateElementPositionInMap(imageView, newX, newY);
+
+                        return true;
+
+                    case MotionEvent.ACTION_UP:
+                }
+
+
+
+                return false;
+
+            }
+        });
+
+    }
+    private void updateElementPositionInMap(ImageView imageView, float newX, float newY) {
+        int imageViewId = imageView.getId();
+
+        for (Map.Entry<Element, ArrayList<int[]>> entry : onDisplay.entrySet()) {
+            ArrayList<int[]> positions = entry.getValue();
+            for (int[] pos : positions) {
+                if (pos[2] == imageViewId) {
+                    pos[0] = (int) newX;
+                    pos[1] = (int) newY;
+                    return;
+                }
+            }
+        }
+    }
+
+
 
     private Element findElementByName(String elementName) {
         if (elements == null) {
