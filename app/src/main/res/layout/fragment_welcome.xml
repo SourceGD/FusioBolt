@@ -19,15 +19,15 @@
         android:layout_margin="24dp"
         android:padding="30dp"/>
 
-    <EditText
-        android:id="@+id/petitnom"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:minHeight="48dp"
-        android:hint="What's you scientist name "
-        android:textColorHint="@color/black"/>
+        android:layout_margin="16dp"
+        android:background="#ED1C24  "
+        android:paddingHorizontal="24dp"
+        android:text="Mixons !"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,15 +35,5 @@
         android:text="Version 0.0.1.5"
         android:textSize="20sp"
         android:layout_margin="24dp"/>
-
-    <Button
-        android:id="@+id/playButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:paddingHorizontal="24dp"
-        android:textSize="14sp"
-        android:text="Mixons !"
-        android:background="#ED1C24  "/>
 
 </LinearLayout>

@@ -1,7 +1,11 @@
 package com.example.fusionbolt;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,13 +49,6 @@ public class MixFragment extends Fragment {
         setupDragAndDrop(binding.eau);
         setupDragAndDrop(binding.terre);
         setupDragAndDrop(binding.vent);
-        setupDragAndDrop(binding.boue);
-        setupDragAndDrop(binding.dust);
-        setupDragAndDrop(binding.fume);
-        setupDragAndDrop(binding.lave);
-        setupDragAndDrop(binding.terre);
-        setupDragAndDrop(binding.vague);
-        setupDragAndDrop(binding.vapeur);
 
         elements = Element.initData();
 
@@ -170,7 +168,7 @@ public class MixFragment extends Fragment {
         for (Element element : onDisplay.keySet()) {
             for (int[] position : onDisplay.get(element)) {
 
-                if (position[0] <= (int) x + 200 && position[0] >= (int) x - 200 && position[1] <= (int) y + 200 && position[1] >= (int) y - 200) {
+                if (position[0] <= (int) x + 100 && position[0] >= (int) x - 100 && position[1] <= (int) y + 100 && position[1] >= (int) y - 100) {
                     existingElement = element;
                     ind = findPositionIndex(onDisplay.get(element), position);
                     break;
@@ -202,6 +200,7 @@ public class MixFragment extends Fragment {
                     ArrayList<int[]> nouvau = new ArrayList<>();
                     nouvau.add(new int[]{(int) x, (int) y, idd});
                     onDisplay.put(newElement, nouvau);
+                    addImageViewDynamically(newElement);
                 }
             }
         } else {
@@ -287,10 +286,37 @@ public class MixFragment extends Fragment {
                     ArrayList<int[]> nouvau = new ArrayList<>();
                     nouvau.add(new int[]{(int) x, (int) y, idd});
                     onDisplay.put(newElement, nouvau);
+                    addImageViewDynamically(newElement);
                 }
             }
         }
     }
+    private void addImageViewDynamically(Element element) {
+        View view = getView();
+        if (view != null && element != null && getContext() != null) {
+            LinearLayout linearLayout = view.findViewById(R.id.linearLayoutContainer);
+            ImageView imageView = new ImageView(getContext());
+
+            String drawableName = element.getDrawableName();
+            if (drawableName != null) {
+                int resId = getContext().getResources().getIdentifier(drawableName, "drawable", getContext().getPackageName());
+                if (resId != 0) {
+                    imageView.setImageResource(resId);
+                    imageView.setTag(element.getName());
+                } else {
+                    Log.e("ImageViewDynamic", "Ressource drawable introuvable: " + drawableName);
+                    return;
+                }
+            }
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+            imageView.setLayoutParams(layoutParams);
+            linearLayout.addView(imageView);
+            setupDragAndDrop(imageView);
+        }
+    }
+
+
     @SuppressLint("ClickableViewAccessibility")
     private void setupTouchListener(ImageView imageView) {
         imageView.setOnTouchListener(new View.OnTouchListener() {
@@ -336,8 +362,6 @@ public class MixFragment extends Fragment {
             }
         }
     }
-
-
 
     private Element findElementByName(String elementName) {
         if (elements == null) {

@@ -122,6 +122,17 @@ public class Element {
     public String getLogo() {
         return logo;
     }
+    public String getDrawableName() {
+        if (logo != null && logo.contains("/")) {
+            String[] parts = logo.split("/");
+            String fileName = parts[parts.length - 1];
+            int dotIndex = fileName.lastIndexOf('.');
+            if (dotIndex > 0) {
+                return fileName.substring(0, dotIndex);
+            }
+        }
+        return null;
+    }
 
     public static ArrayList<Element> initData(){
 

@@ -39,20 +39,7 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.playButton.setEnabled(false);
-
-        binding.petitnom.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                binding.playButton.setEnabled(!s.toString().isEmpty());
-            }
-        });
+        binding.playButton.setEnabled(true);
 
 
         binding.playButton.setOnClickListener(new View.OnClickListener() {
