@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fusionbolt.databinding.FragmentWelcomeBinding;
+import com.example.fusionbolt.RulesFragment;
+import com.example.fusionbolt.ElemDexFragment;
 
 public class WelcomeFragment extends Fragment {
 
@@ -50,6 +52,32 @@ public class WelcomeFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 MixFragment mix = new MixFragment();
                 fragmentTransaction.replace(R.id.fragment_container_view_uy, mix);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        binding.rules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("Antdrgrgoine", "cldrggic");
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                RulesFragment rulesFragment = new RulesFragment();
+                fragmentTransaction.replace(R.id.fragment_container_view_uy, rulesFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        binding.pokedex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("Antoirdgne", "clidrgc");
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ElemDexFragment elemDexFragment = new ElemDexFragment();
+                fragmentTransaction.replace(R.id.fragment_container_view_uy, elemDexFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
