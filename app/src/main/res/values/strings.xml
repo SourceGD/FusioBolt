@@ -13,4 +13,8 @@
     <string name="Vent" />
     <string name="mix_some_elements_here">Mix some elements here !</string>
     <string name="new_discovery">👨🏻‍🔬 New Discovery !</string>
+    <string name="Boue" />
+    <string name="Fumée" />
+    <string name="Lave" />
+    <string name="Vapeur" />
 </resources>
