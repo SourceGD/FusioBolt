@@ -15,10 +15,13 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.fusionbolt.databinding.FragmentMixBinding;
 
@@ -52,8 +55,24 @@ public class MixFragment extends Fragment {
 
         elements = Element.initData();
 
+
+        ProgressBar progressBar = binding.progressBar;
+
+        progressBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ElemDexFragment elemDexFragment = new ElemDexFragment();
+                fragmentTransaction.replace(R.id.fragment_container_view_uy, elemDexFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         return binding.getRoot();
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private void setupDragAndDrop(ImageView imageView) {
@@ -89,6 +108,14 @@ public class MixFragment extends Fragment {
                     default:
                         return true;
                 }
+            }
+        });
+        ImageView characterImageView = view.findViewById(R.id.characterImageView);
+        characterImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Faire disparaître l'ImageView
+                v.setVisibility(View.GONE);
             }
         });
     }
@@ -194,6 +221,9 @@ public class MixFragment extends Fragment {
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
                 } else {
+                    ProgressBar progressBar = binding.progressBar;
+                    int f = progressBar.getProgress();
+                    progressBar.setProgress(f + 1);
                     int idd = displayElementInView(newElement, x, y);
                     ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
                     setupTouchListener(imageView);
@@ -280,6 +310,9 @@ public class MixFragment extends Fragment {
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
                 } else {
+                    ProgressBar progressBar = binding.progressBar;
+                    int f = progressBar.getProgress();
+                    progressBar.setProgress(f + 1);
                     int idd = displayElementInView(newElement, x, y);
                     ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
                     setupTouchListener(imageView);
