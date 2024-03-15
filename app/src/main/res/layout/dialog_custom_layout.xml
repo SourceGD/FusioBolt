@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/dialogImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:src="@drawable/dieumignon" />
+
+    <TextView
+        android:id="@+id/dialogTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Woaw ! J'ai l'impression de me voir il y'a 13,7 milliards d’années ! Enfin.. Attention a ne pas créer d'humains, ça a été le début des soucis pour moi.."
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"/>
+</LinearLayout>

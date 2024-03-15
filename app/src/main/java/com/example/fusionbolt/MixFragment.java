@@ -1,9 +1,18 @@
 package com.example.fusionbolt;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.DragEvent;
@@ -11,6 +20,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -35,9 +48,7 @@ public class MixFragment extends Fragment {
 
     private ArrayList<Element> elements;
     private FragmentMixBinding binding;
-    private Element selectedElement = null;
-
-    private float initialX, initialY;
+    private int dialogueCount = 0;
     private int initialTouchX, initialTouchY;
 
     public HashMap<Element, ArrayList<int[]>> onDisplay = new HashMap<>();
@@ -111,14 +122,77 @@ public class MixFragment extends Fragment {
             }
         });
         ImageView characterImageView = view.findViewById(R.id.characterImageView);
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.move_up);
+        characterImageView.startAnimation(animation);
+
+
+        float destinationY = (view.getHeight() - characterImageView.getHeight()) / 2.0f - characterImageView.getTop();
+        ObjectAnimator moveToCenter = ObjectAnimator.ofFloat(characterImageView, "translationY", 0f, destinationY);
+        moveToCenter.setDuration(1000); // 1 seconde pour atteindre le centre
+        ObjectAnimator breatheAnimation = ObjectAnimator.ofFloat(characterImageView, "translationY", destinationY, destinationY - 20f, destinationY);
+        breatheAnimation.setDuration(1000); // Durée de l'animation de respiration
+        breatheAnimation.setRepeatCount(ValueAnimator.INFINITE); // Répéter indéfiniment
+        breatheAnimation.setRepeatMode(ValueAnimator.REVERSE); // Inverser l'animation pour un effet de respiration
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(moveToCenter, breatheAnimation);
+        animatorSet.start();
+
         characterImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Faire disparaître l'ImageView
-                v.setVisibility(View.GONE);
+                if (dialogueCount < 8) {
+                    showDialogue();
+                    dialogueCount++;
+                } else {
+                    dialogueCount = 0;
+                    v.setVisibility(View.GONE);
+                    animatorSet.end();
+                    characterImageView.clearAnimation();
+                }
             }
         });
     }
+    private void showDialogue() {
+        String message = "";
+
+        switch (dialogueCount) {
+            case 0:
+                message = "Bonjour ! je suis dieu !";
+                break;
+            case 1:
+                message = " J'ai détruit mon univers suite a un mauvais mélange.";
+                break;
+            case 2:
+                message = "Mes supérieur désirent me transformer en Quasar mais je les ai supplié de me laisser une chance..";
+                break;
+            case 3:
+                message = "Alors on m'a donné pour mission de t'aider ! C'est a ton tour maintenant de créer ton univers !";
+                break;
+            case 4:
+                message = "Quoi ? Tu ne sais pas comment faire ?!";
+                break;
+            case 5:
+                message = "Mais enfin, c'est très simple !";
+                break;
+            case 6:
+                message = "Il suffit de mélanger des trucs avec des machins, et ça donne des bidules en somme !";
+                break;
+            case 7:
+                message = "Allez ! T'apprendras sur le tas ! C'est partit !";
+                break;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(message)
+                .setCancelable(true);
+
+        final AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(true);
+
+        dialog.show();
+    }
+
 
     public Element mixThem(Element e1, Element e2){
         if (e1 == null || e2 == null || e1.getPropriety() == null) {
@@ -184,7 +258,25 @@ public class MixFragment extends Fragment {
         return -1;
     }
 
+    private void checkProgressBarProgress() {
+        ProgressBar progressBar = binding.progressBar; // Assurez-vous que cette ligne est dans onCreateView ou une méthode similaire pour initialiser progressBar
+        // Exemple d'utilisation dans onViewCreated
+        if (progressBar.getProgress() == progressBar.getMax()/2) {
+            showImageDialogue();
+        }
+    }
 
+    private void showImageDialogue() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_custom_layout, null);
+        builder.setView(dialogView);
+
+        builder.setCancelable(true);
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void handleDropEvent(ImageView draggedImageView, float x, float y) {
@@ -218,14 +310,18 @@ public class MixFragment extends Fragment {
                     ArrayList<int[]> updaton = onDisplay.get(newElement);
                     updaton.add(new int[]{(int) x, (int) y, idd});
                     ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+                    Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+                    imageView.startAnimation(fadeInAnimation);
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
                 } else {
                     ProgressBar progressBar = binding.progressBar;
                     int f = progressBar.getProgress();
                     progressBar.setProgress(f + 1);
+                    checkProgressBarProgress();
                     int idd = displayElementInView(newElement, x, y);
                     ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+
                     setupTouchListener(imageView);
                     ArrayList<int[]> nouvau = new ArrayList<>();
                     nouvau.add(new int[]{(int) x, (int) y, idd});
@@ -244,6 +340,8 @@ public class MixFragment extends Fragment {
             } else {
                 int idd = displayElementInView(droppedElement, x, y);
                 ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+
+
                 setupTouchListener(imageView);
                 ArrayList<int[]> nouvau = new ArrayList<>();
                 nouvau.add(new int[]{(int) x, (int) y, idd});
@@ -264,7 +362,6 @@ public class MixFragment extends Fragment {
                 }
             }
         }
-
 
         int ind = 0;
         Element existingElement = null;
@@ -307,14 +404,18 @@ public class MixFragment extends Fragment {
                     ArrayList<int[]> updaton = onDisplay.get(newElement);
                     updaton.add(new int[]{(int) x, (int) y, idd});
                     ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+                    Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+                    imageView.startAnimation(fadeInAnimation);
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
                 } else {
                     ProgressBar progressBar = binding.progressBar;
                     int f = progressBar.getProgress();
                     progressBar.setProgress(f + 1);
+                    checkProgressBarProgress();
                     int idd = displayElementInView(newElement, x, y);
                     ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
+
                     setupTouchListener(imageView);
                     ArrayList<int[]> nouvau = new ArrayList<>();
                     nouvau.add(new int[]{(int) x, (int) y, idd});
@@ -407,5 +508,6 @@ public class MixFragment extends Fragment {
         }
         return null;
     }
+
 }
 
