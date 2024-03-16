@@ -167,7 +167,7 @@ public class MixFragment extends Fragment {
                 message = "Mes supérieur désirent me transformer en Quasar mais je les ai supplié de me laisser une chance..";
                 break;
             case 3:
-                message = "Alors on m'a donné pour mission de t'aider ! C'est a ton tour maintenant de créer ton univers !";
+                message = "Alors on m'a donné pour mission de t'aider ! C'est à ton tour maintenant de créer ton univers !";
                 break;
             case 4:
                 message = "Quoi ? Tu ne sais pas comment faire ?!";
