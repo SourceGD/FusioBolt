@@ -15,24 +15,48 @@ import java.util.Arrays;
 import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity {
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
-    public ArrayList<Element> elements;
+public class MainActivity extends AppCompatActivity {
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        elements = Element.initData();
+        dbHelper = new DatabaseHelper(this);
+        dbHelper.clearDatabase();
+        insertInitialData();
+    }
 
-        for (Element element : elements) {
-            System.out.println("Nom : " + element.getName());
-            for (Map.Entry<Element, Element> entry : element.getPropriety().entrySet()) {
-                Element key = entry.getKey();
-                Element value = entry.getValue();
-                System.out.println("Clé : " + key.getName() + ", Valeur : " + value.getName());
-            }
-        }
+    private void insertInitialData() {
+        // Ajouter des éléments
+
+        dbHelper.addElement("Feu", "drawable/feu");
+        dbHelper.setElementUsed("Feu");
+        dbHelper.addElement("Eau", "drawable/gouttes");
+        dbHelper.setElementUsed("Eau");
+        dbHelper.addElement("Terre", "drawable/sol");
+        dbHelper.setElementUsed("Terre");
+        dbHelper.addElement("Vent", "drawable/vent");
+        dbHelper.setElementUsed("Vent");
+        dbHelper.addElement("Vapeur", "drawable/vapeur");
+        dbHelper.addElement("Lave", "drawable/lave");
+        dbHelper.addElement("Fumée", "drawable/fume");
+        dbHelper.addElement("Boue", "drawable/boue");
+        dbHelper.addElement("Vague", "drawable/vague");
+        dbHelper.addElement("Poussière", "drawable/dust");
+
+
+
+        dbHelper.addRelation("Feu", "Eau", "Vapeur");
+        dbHelper.addRelation("Feu", "Terre", "Lave");
+        dbHelper.addRelation("Feu", "Vent", "Fumée");
+        dbHelper.addRelation("Eau", "Terre", "Boue");
+        dbHelper.addRelation("Eau", "Vent", "Vague");
+        dbHelper.addRelation("Terre", "Vent", "Poussière");
+
     }
 }

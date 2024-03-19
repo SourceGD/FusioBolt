@@ -1,6 +1,11 @@
 package com.example.fusionbolt;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.graphics.Path;
+import android.view.View;
+import android.widget.ImageView;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -47,9 +52,13 @@ import java.util.Map;
 public class MixFragment extends Fragment {
 
     private ArrayList<Element> elements;
+    private ArrayList<Element> usedElements;
     private FragmentMixBinding binding;
     private int dialogueCount = 0;
     private int initialTouchX, initialTouchY;
+    private DatabaseHelper dbHelper;
+    private Map<String, String> relations;
+
 
     public HashMap<Element, ArrayList<int[]>> onDisplay = new HashMap<>();
 
@@ -57,14 +66,15 @@ public class MixFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        dbHelper = new DatabaseHelper(getContext());
+        loadElementsAndRelations();
+        loadusedElements();
+
+
         binding = FragmentMixBinding.inflate(inflater, container, false);
 
-        setupDragAndDrop(binding.feu);
-        setupDragAndDrop(binding.eau);
-        setupDragAndDrop(binding.terre);
-        setupDragAndDrop(binding.vent);
-
-        elements = Element.initData();
+        displayUsedElements();
 
 
         ProgressBar progressBar = binding.progressBar;
@@ -83,7 +93,23 @@ public class MixFragment extends Fragment {
 
         return binding.getRoot();
     }
-
+    private void loadusedElements() {
+        usedElements = new ArrayList<>();
+        for (Element element : elements) {
+            if (element.isUsed()) {
+                usedElements.add(element);
+            }
+        }
+    }
+    private void loadElementsAndRelations() {
+        if (dbHelper != null) {
+            elements = (ArrayList<Element>) dbHelper.getAllElements(); // Charger les éléments
+            relations = dbHelper.getAllRelations(); // Charger les relations
+        } else {
+            elements = new ArrayList<>();
+            relations = new HashMap<>();
+        }
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void setupDragAndDrop(ImageView imageView) {
@@ -128,11 +154,11 @@ public class MixFragment extends Fragment {
 
         float destinationY = (view.getHeight() - characterImageView.getHeight()) / 2.0f - characterImageView.getTop();
         ObjectAnimator moveToCenter = ObjectAnimator.ofFloat(characterImageView, "translationY", 0f, destinationY);
-        moveToCenter.setDuration(1000); // 1 seconde pour atteindre le centre
+        moveToCenter.setDuration(1000);
         ObjectAnimator breatheAnimation = ObjectAnimator.ofFloat(characterImageView, "translationY", destinationY, destinationY - 20f, destinationY);
-        breatheAnimation.setDuration(1000); // Durée de l'animation de respiration
-        breatheAnimation.setRepeatCount(ValueAnimator.INFINITE); // Répéter indéfiniment
-        breatheAnimation.setRepeatMode(ValueAnimator.REVERSE); // Inverser l'animation pour un effet de respiration
+        breatheAnimation.setDuration(1000);
+        breatheAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        breatheAnimation.setRepeatMode(ValueAnimator.REVERSE);
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playSequentially(moveToCenter, breatheAnimation);
@@ -195,13 +221,19 @@ public class MixFragment extends Fragment {
 
 
     public Element mixThem(Element e1, Element e2){
-        if (e1 == null || e2 == null || e1.getPropriety() == null) {
+        String s1 = e1.getName()+"+"+e2.getName();
+        String s2 = e2.getName()+"+"+e1.getName();
+
+        if(relations.containsKey(s1)) {
+            return findElementByName(relations.get(s1));
+        }
+        else if(relations.containsKey(s2)) {
+            return findElementByName(relations.get(s2));
+        }
+        else {
             return null;
         }
-        for(Element e : e1.getPropriety().keySet()){
-            if(e != null && e.getName().equals(e2.getName())) return e1.getPropriety().get(e);
-        }
-        return null;
+
     }
 
 
@@ -259,8 +291,7 @@ public class MixFragment extends Fragment {
     }
 
     private void checkProgressBarProgress() {
-        ProgressBar progressBar = binding.progressBar; // Assurez-vous que cette ligne est dans onCreateView ou une méthode similaire pour initialiser progressBar
-        // Exemple d'utilisation dans onViewCreated
+        ProgressBar progressBar = binding.progressBar;
         if (progressBar.getProgress() == progressBar.getMax()/2) {
             showImageDialogue();
         }
@@ -301,6 +332,7 @@ public class MixFragment extends Fragment {
 
                 ArrayList<int[]> remove1 = onDisplay.get(existingElement);
                 int[] indexxx = remove1.get(ind);
+                int fff = indexxx[2];
                 removeImageView(indexxx[2]);
                 remove1.remove(ind);
                 onDisplay.put(existingElement, remove1);
@@ -325,6 +357,8 @@ public class MixFragment extends Fragment {
                     setupTouchListener(imageView);
                     ArrayList<int[]> nouvau = new ArrayList<>();
                     nouvau.add(new int[]{(int) x, (int) y, idd});
+                    newElement.setUsed(true);
+                    dbHelper.setElementUsed(newElement.getName());
                     onDisplay.put(newElement, nouvau);
                     addImageViewDynamically(newElement);
                 }
@@ -340,8 +374,6 @@ public class MixFragment extends Fragment {
             } else {
                 int idd = displayElementInView(droppedElement, x, y);
                 ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
-
-
                 setupTouchListener(imageView);
                 ArrayList<int[]> nouvau = new ArrayList<>();
                 nouvau.add(new int[]{(int) x, (int) y, idd});
@@ -419,6 +451,8 @@ public class MixFragment extends Fragment {
                     setupTouchListener(imageView);
                     ArrayList<int[]> nouvau = new ArrayList<>();
                     nouvau.add(new int[]{(int) x, (int) y, idd});
+                    newElement.setUsed(true);
+                    dbHelper.setElementUsed(newElement.getName());
                     onDisplay.put(newElement, nouvau);
                     addImageViewDynamically(newElement);
                 }
@@ -431,7 +465,7 @@ public class MixFragment extends Fragment {
             LinearLayout linearLayout = view.findViewById(R.id.linearLayoutContainer);
             ImageView imageView = new ImageView(getContext());
 
-            String drawableName = element.getDrawableName();
+            String drawableName = element.getLogo();
             if (drawableName != null) {
                 int resId = getContext().getResources().getIdentifier(drawableName, "drawable", getContext().getPackageName());
                 if (resId != 0) {
@@ -449,6 +483,38 @@ public class MixFragment extends Fragment {
             setupDragAndDrop(imageView);
         }
     }
+
+    private void displayUsedElements() {
+        LinearLayout linearLayout = binding.linearLayoutContainer;
+        linearLayout.removeAllViews(); // Nettoyer pour éviter les doublons
+
+        for (Element element : usedElements) {
+            if(element.isUsed()) { // Vérifiez si l'élément est utilisé
+                ImageView imageView = new ImageView(getContext());
+                int resId = getResources().getIdentifier(element.getLogo(), "drawable", getContext().getPackageName());
+                if (resId != 0) {
+                    imageView.setImageResource(resId);
+
+                    // Configuration des LayoutParams avec un poids
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            0,
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            1.0f
+                    );
+
+                    imageView.setLayoutParams(layoutParams);
+
+                    imageView.setTag(element.getName());
+
+                    setupDragAndDrop(imageView);
+
+                    linearLayout.addView(imageView);
+                }
+            }
+        }
+    }
+
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -496,7 +562,6 @@ public class MixFragment extends Fragment {
             }
         }
     }
-
     private Element findElementByName(String elementName) {
         if (elements == null) {
             return null;
@@ -508,6 +573,11 @@ public class MixFragment extends Fragment {
         }
         return null;
     }
+    private void loadElementsFromDatabase() {
+        elements = (ArrayList<Element>) dbHelper.getAllElements();
+    }
+
+
 
 }
 
