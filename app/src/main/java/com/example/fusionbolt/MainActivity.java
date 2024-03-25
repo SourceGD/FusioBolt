@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addElement("Fumée", "drawable/fume");
         dbHelper.addElement("Boue", "drawable/boue");
         dbHelper.addElement("Vague", "drawable/vague");
-        dbHelper.addElement("Poussière", "drawable/dust");
+        dbHelper.addElement("Poussière", "drawable/dust2");
 
 
 
