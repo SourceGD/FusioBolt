@@ -147,37 +147,43 @@ public class MixFragment extends Fragment {
                 }
             }
         });
-        ImageView characterImageView = view.findViewById(R.id.characterImageView);
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.move_up);
-        characterImageView.startAnimation(animation);
+
+        if(usedElements.size() == 4){
+            ImageView characterImageView = view.findViewById(R.id.characterImageView);
+            Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.move_up);
+            characterImageView.startAnimation(animation);
 
 
-        float destinationY = (view.getHeight() - characterImageView.getHeight()) / 2.0f - characterImageView.getTop();
-        ObjectAnimator moveToCenter = ObjectAnimator.ofFloat(characterImageView, "translationY", 0f, destinationY);
-        moveToCenter.setDuration(1000);
-        ObjectAnimator breatheAnimation = ObjectAnimator.ofFloat(characterImageView, "translationY", destinationY, destinationY - 20f, destinationY);
-        breatheAnimation.setDuration(1000);
-        breatheAnimation.setRepeatCount(ValueAnimator.INFINITE);
-        breatheAnimation.setRepeatMode(ValueAnimator.REVERSE);
+            float destinationY = (view.getHeight() - characterImageView.getHeight()) / 2.0f - characterImageView.getTop();
+            ObjectAnimator moveToCenter = ObjectAnimator.ofFloat(characterImageView, "translationY", 0f, destinationY);
+            moveToCenter.setDuration(1000);
+            ObjectAnimator breatheAnimation = ObjectAnimator.ofFloat(characterImageView, "translationY", destinationY, destinationY - 20f, destinationY);
+            breatheAnimation.setDuration(1000);
+            breatheAnimation.setRepeatCount(ValueAnimator.INFINITE);
+            breatheAnimation.setRepeatMode(ValueAnimator.REVERSE);
 
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(moveToCenter, breatheAnimation);
-        animatorSet.start();
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playSequentially(moveToCenter, breatheAnimation);
+            animatorSet.start();
 
-        characterImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialogueCount < 8) {
-                    showDialogue();
-                    dialogueCount++;
-                } else {
-                    dialogueCount = 0;
-                    v.setVisibility(View.GONE);
-                    animatorSet.end();
-                    characterImageView.clearAnimation();
+            characterImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dialogueCount < 8) {
+                        showDialogue();
+                        dialogueCount++;
+                    } else {
+                        dialogueCount = 0;
+                        v.setVisibility(View.GONE);
+                        animatorSet.end();
+                        characterImageView.clearAnimation();
+                    }
                 }
-            }
-        });
+            });
+        }else {
+            ImageView characterImageView = view.findViewById(R.id.characterImageView);
+            characterImageView.setVisibility(View.GONE);
+        }
     }
     private void showDialogue() {
         String message = "";
@@ -358,9 +364,11 @@ public class MixFragment extends Fragment {
                     ArrayList<int[]> nouvau = new ArrayList<>();
                     nouvau.add(new int[]{(int) x, (int) y, idd});
                     newElement.setUsed(true);
-                    dbHelper.setElementUsed(newElement.getName());
+                    if(!usedElements.contains(newElement)){
+                        dbHelper.setElementUsed(newElement.getName());
+                        addImageViewDynamically(newElement);
+                    }
                     onDisplay.put(newElement, nouvau);
-                    addImageViewDynamically(newElement);
                 }
             }
         } else {
@@ -452,9 +460,12 @@ public class MixFragment extends Fragment {
                     ArrayList<int[]> nouvau = new ArrayList<>();
                     nouvau.add(new int[]{(int) x, (int) y, idd});
                     newElement.setUsed(true);
-                    dbHelper.setElementUsed(newElement.getName());
+
+                    if(!usedElements.contains(newElement)){
+                        dbHelper.setElementUsed(newElement.getName());
+                        addImageViewDynamically(newElement);
+                    }
                     onDisplay.put(newElement, nouvau);
-                    addImageViewDynamically(newElement);
                 }
             }
         }

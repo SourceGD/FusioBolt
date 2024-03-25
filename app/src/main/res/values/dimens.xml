@@ -3,4 +3,5 @@
     <dimen name="image_size">50dp</dimen>
     <dimen name="image_width">50dp</dimen>
     <dimen name="image_height">50dp</dimen>
+    <dimen name="grid_spacing">16dp</dimen>
 </resources>
