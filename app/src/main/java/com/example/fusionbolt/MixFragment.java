@@ -87,7 +87,6 @@ public class MixFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ElemDexFragment elemDexFragment = new ElemDexFragment();
                 fragmentTransaction.replace(R.id.fragment_container_view_uy, elemDexFragment);
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -186,6 +185,10 @@ public class MixFragment extends Fragment {
             characterImageView.setVisibility(View.GONE);
         }
     }
+
+
+
+
     private void showDialogue() {
         String message = "";
 
@@ -304,6 +307,17 @@ public class MixFragment extends Fragment {
         }
     }
 
+    private void removeLeftmostImageView(LinearLayout linearLayout) {
+        int childCount = linearLayout.getChildCount();
+        if (childCount > 0) {
+            View leftmostChild = linearLayout.getChildAt(0);
+            if (leftmostChild instanceof ImageView) {
+                linearLayout.removeViewAt(0);
+            }
+        }
+    }
+
+
     private void showImageDialogue() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_custom_layout, null);
@@ -315,6 +329,7 @@ public class MixFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private void handleDropEvent(ImageView draggedImageView, float x, float y) {
@@ -354,6 +369,10 @@ public class MixFragment extends Fragment {
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
                 } else {
+                    if(displayed >= 7){
+                        removeLeftmostImageView(binding.linearLayoutContainer);
+                    }
+                    displayed++;
                     ProgressBar progressBar = binding.progressBar;
                     int f = progressBar.getProgress();
                     progressBar.setProgress(f + 1);
@@ -450,6 +469,10 @@ public class MixFragment extends Fragment {
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
                 } else {
+                    if(displayed >= 7){
+                        removeLeftmostImageView(binding.linearLayoutContainer);
+                    }
+                    displayed++;
                     ProgressBar progressBar = binding.progressBar;
                     int f = progressBar.getProgress();
                     progressBar.setProgress(f + 1);
