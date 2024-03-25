@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -59,7 +60,17 @@ public class ElemDexFragment extends Fragment {
 
             if (!element.isUsed()) {
                 imageView.setColorFilter(Color.GRAY);
-
+            } else {
+                imageView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            dbHelper.updateElementAccessTime(element.getName());
+                            return true;
+                        }
+                        return false;
+                    }
+                });
             }
 
             TextView textView = new TextView(getContext());

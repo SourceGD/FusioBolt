@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "elementsDB";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // Table Elements
     private static final String TABLE_ELEMENTS = "elements";
@@ -26,11 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PARENT_NAME = "parent_name";
     private static final String COLUMN_CHILD_NAME = "child_name";
     private static final String COLUMN_RESULT_NAME = "result_name";
+    private static final String COLUMN_LAST_ACCESSED = "last_accessed";
+
 
     private static final String CREATE_TABLE_ELEMENTS = "CREATE TABLE " + TABLE_ELEMENTS + "("
             + COLUMN_NAME + " TEXT PRIMARY KEY,"
             + COLUMN_LOGO + " TEXT,"
-            + COLUMN_USED + " INTEGER DEFAULT 0" + ")"; // SQLite utilise 0 (faux) et 1 (vrai) pour boolean
+            + COLUMN_USED + " INTEGER DEFAULT 0,"
+            + COLUMN_LAST_ACCESSED + " INTEGER" + ")";
 
     private static final String CREATE_TABLE_RELATIONS = "CREATE TABLE " + TABLE_RELATIONS + "("
             + COLUMN_PARENT_NAME + " TEXT,"
@@ -51,6 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ELEMENTS);
         db.execSQL(CREATE_TABLE_RELATIONS);
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -77,6 +82,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_RESULT_NAME, resultName);
         db.insert(TABLE_RELATIONS, null, values);
     }
+
+    public void updateElementAccessTime(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_LAST_ACCESSED, System.currentTimeMillis()); // Utiliser le timestamp actuel
+        db.update(TABLE_ELEMENTS, values, COLUMN_NAME + " = ?", new String[]{name});
+    }
+
+    public List<Element> getElementsSortedByLastAccessed() {
+        List<Element> elements = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_ELEMENTS, new String[] { COLUMN_NAME, COLUMN_LOGO, COLUMN_USED, COLUMN_LAST_ACCESSED }, null, null, null, null, COLUMN_LAST_ACCESSED + " DESC");
+
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+            String logo = cursor.getString(cursor.getColumnIndex(COLUMN_LOGO));
+            boolean used = cursor.getInt(cursor.getColumnIndex(COLUMN_USED)) > 0;
+            elements.add(new Element(name, logo, used));
+        }
+        cursor.close();
+        return elements;
+    }
+
+
 
     public void setElementUsed(String name) {
         SQLiteDatabase db = this.getWritableDatabase();

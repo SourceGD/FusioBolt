@@ -54,6 +54,7 @@ public class MixFragment extends Fragment {
     private ArrayList<Element> elements;
     private ArrayList<Element> usedElements;
     private FragmentMixBinding binding;
+    private int displayed = 0;
     private int dialogueCount = 0;
     private int initialTouchX, initialTouchY;
     private DatabaseHelper dbHelper;
@@ -103,7 +104,7 @@ public class MixFragment extends Fragment {
     }
     private void loadElementsAndRelations() {
         if (dbHelper != null) {
-            elements = (ArrayList<Element>) dbHelper.getAllElements(); // Charger les éléments
+            elements = (ArrayList<Element>) dbHelper.getElementsSortedByLastAccessed(); // Charger les éléments
             relations = dbHelper.getAllRelations(); // Charger les relations
         } else {
             elements = new ArrayList<>();
@@ -500,7 +501,8 @@ public class MixFragment extends Fragment {
         linearLayout.removeAllViews(); // Nettoyer pour éviter les doublons
 
         for (Element element : usedElements) {
-            if(element.isUsed()) { // Vérifiez si l'élément est utilisé
+            if(element.isUsed() && displayed <= 8) { // Vérifiez si l'élément est utilisé
+                displayed++;
                 ImageView imageView = new ImageView(getContext());
                 int resId = getResources().getIdentifier(element.getLogo(), "drawable", getContext().getPackageName());
                 if (resId != 0) {
