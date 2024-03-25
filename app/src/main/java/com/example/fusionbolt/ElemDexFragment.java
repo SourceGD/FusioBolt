@@ -59,6 +59,7 @@ public class ElemDexFragment extends Fragment {
 
             if (!element.isUsed()) {
                 imageView.setColorFilter(Color.GRAY);
+
             }
 
             TextView textView = new TextView(getContext());
@@ -84,10 +85,6 @@ public class ElemDexFragment extends Fragment {
 
         return view;
     }
-
-
-
-
 
 
     @Override
