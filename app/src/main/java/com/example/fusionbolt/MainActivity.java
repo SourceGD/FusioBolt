@@ -48,114 +48,205 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addElement("Boue", "drawable/boue");
         dbHelper.addElement("Vague", "drawable/vague");
         dbHelper.addElement("Poussière", "drawable/dust2");
-
-
-        //new ajout
-        dbHelper.addElement("Roche", "drawable/roche");
-        dbHelper.addElement("Feu Follet", "drawable/feufollet");
-        dbHelper.addElement("Pierre", "drawable/pierre");
-        dbHelper.addElement("Océan", "drawable/ocean");
-        dbHelper.addElement("Argile", "drawable/argile");
-        dbHelper.addElement("Géysère", "drawable/geysere");
-        dbHelper.addElement("Rivière", "drawable/riviere");
+        dbHelper.addElement("Danse", "drawable/danse");
+        dbHelper.addElement("Feuille", "drawable/feuille");
+        dbHelper.addElement("Ile", "drawable/ile");
+        dbHelper.addElement("Agriculture", "drawable/agriculture");
+        dbHelper.addElement("Société", "drawable/societe");
+        dbHelper.addElement("Dune", "drawable/dune");
+        dbHelper.addElement("Poterie", "drawable/poterie");
         dbHelper.addElement("Sable", "drawable/sable");
+        dbHelper.addElement("Forêt", "drawable/foret");
+        dbHelper.addElement("Rivière", "drawable/riviere");
+        dbHelper.addElement("Culture", "drawable/culture");
+        dbHelper.addElement("Homme", "drawable/homme");
+        dbHelper.addElement("Passion", "drawable/passion");
         dbHelper.addElement("Cendres", "drawable/cendres");
-        dbHelper.addElement("Marais", "drawable/marais");
-        dbHelper.addElement("Nuage", "drawable/nuage");
-        dbHelper.addElement("Brume", "drawable/brume");
-        dbHelper.addElement("Volcan", "drawable/volcan");
-        dbHelper.addElement("Brouillard", "drawable/brouillard");
-        dbHelper.addElement("Rochers Chauds", "drawable/rocherschauds");
-        dbHelper.addElement("Plage", "drawable/plage");
-        dbHelper.addElement("Éclair", "drawable/eclair");
-        dbHelper.addElement("Île", "drawable/ile");
-        dbHelper.addElement("Rosée", "drawable/rosee");
-        dbHelper.addElement("Verre", "drawable/verre");
-        dbHelper.addElement("Cascade", "drawable/cascade");
-        dbHelper.addElement("Montagne", "drawable/montagne");
-        dbHelper.addElement("Pierres Précieuses", "drawable/pierresprecieuses");
+        dbHelper.addElement("Oasis", "drawable/oasis");
+        dbHelper.addElement("Musique", "drawable/musique");
+        dbHelper.addElement("Eléphant", "drawable/elephant");
+        dbHelper.addElement("Archipel", "drawable/archipel");
+        dbHelper.addElement("Famille", "drawable/famille");
+        dbHelper.addElement("Océan", "drawable/ocean");
+        dbHelper.addElement("Plante", "drawable/plante");
         dbHelper.addElement("Pluie", "drawable/pluie");
-        dbHelper.addElement("Tourbière", "drawable/tourbiere");
-        dbHelper.addElement("Sable Brûlant", "drawable/sablebrulant");
-        dbHelper.addElement("Magma", "drawable/magma");
-        dbHelper.addElement("Falaise", "drawable/falaise");
-        dbHelper.addElement("Glace", "drawable/glace");
-        dbHelper.addElement("Évaporation", "drawable/evaporation");
-        dbHelper.addElement("Silex", "drawable/silex");
-        dbHelper.addElement("Lit de Rivière", "drawable/litderiviere");
-        dbHelper.addElement("Gouttes", "drawable/gouttesdeau");
-        dbHelper.addElement("Côte", "drawable/cote");
-        dbHelper.addElement("Gravier", "drawable/gravier");
-        dbHelper.addElement("Glacière", "drawable/glaciere");
-        dbHelper.addElement("Sel", "drawable/sel");
-        dbHelper.addElement("Moulin à Eau", "drawable/moulinaeau");
-        dbHelper.addElement("Source", "drawable/source");
+        dbHelper.addElement("Planète", "drawable/planete2");
+        dbHelper.addElement("Pégase", "drawable/pegase");
+        dbHelper.addElement("Incendie", "drawable/incendie");
         dbHelper.addElement("Obsidienne", "drawable/obsidienne");
-        dbHelper.addElement("Scories", "drawable/scories");
-        dbHelper.addElement("Torrent", "drawable/torrent");
-        dbHelper.addElement("Sommet", "drawable/sommet");
-        dbHelper.addElement("Rivage", "drawable/rivage");
-        dbHelper.addElement("Ruisseau", "drawable/ruisseau");
-        dbHelper.addElement("Gisement", "drawable/gisement");
+        dbHelper.addElement("Marais", "drawable/marais");
+        dbHelper.addElement("Charbon", "drawable/charbon");
+        dbHelper.addElement("Sexe", "drawable/sexe");
+        dbHelper.addElement("Système solaire", "drawable/solaire");
+        dbHelper.addElement("Tempête", "drawable/tempete");
+        dbHelper.addElement("Angleterre", "drawable/angleterre");
+        dbHelper.addElement("Canyon", "drawable/canyon");
+        dbHelper.addElement("Tornade", "drawable/tornade");
+        dbHelper.addElement("Galaxie", "drawable/galaxie");
+        dbHelper.addElement("Dieu", "drawable/dieumignon");
+        dbHelper.addElement("Cérémonie", "drawable/ceremonie");
+        dbHelper.addElement("Céramique", "drawable/ceramique");
+        dbHelper.addElement("Désert", "drawable/desert");
+        dbHelper.addElement("Art", "drawable/art");
+        dbHelper.addElement("Orage", "drawable/orage");
+        dbHelper.addElement("Civilisation", "drawable/civilisation");
+        dbHelper.addElement("Grêle", "drawable/grele");
+        dbHelper.addElement("Spectacle", "drawable/spectacle");
+        dbHelper.addElement("Soleil", "drawable/soleil");
+        dbHelper.addElement("Bol", "drawable/bol");
+        dbHelper.addElement("Licorne", "drawable/licorne");
+        dbHelper.addElement("Fleuve", "drawable/fleuve");
+        dbHelper.addElement("Verre", "drawable/verre");
+        dbHelper.addElement("Thé", "drawable/the");
+        dbHelper.addElement("Poisson", "drawable/poisson");
+        dbHelper.addElement("Mars", "drawable/mars");
+        dbHelper.addElement("Tempête de sable", "drawable/sandstorm");
+        dbHelper.addElement("Brouillard", "drawable/brouillard");
+        dbHelper.addElement("Cyclone", "drawable/cyclone");
+        dbHelper.addElement("Univers", "drawable/univers");
+        dbHelper.addElement("Arbre", "drawable/arbre");
+        dbHelper.addElement("Amour", "drawable/amour");
+        dbHelper.addElement("Volcan", "drawable/volcan");
+        dbHelper.addElement("Vase", "drawable/vase");
+        dbHelper.addElement("Arc-en-ciel", "drawable/rainbow");
+        dbHelper.addElement("Théâtre", "drawable/theatre");
+        dbHelper.addElement("Continent", "drawable/continent");
+        dbHelper.addElement("Roche", "drawable/roche");
+        dbHelper.addElement("Neptune", "drawable/neptune");
+        dbHelper.addElement("Terre", "drawable/laterre");
+        dbHelper.addElement("Neige", "drawable/neige2");
+        dbHelper.addElement("Peinture", "drawable/peinture");
+        dbHelper.addElement("Gel", "drawable/gel");
+        dbHelper.addElement("Mangrove", "drawable/mangrove");
+        dbHelper.addElement("Oiseau", "drawable/oiseau");
+        dbHelper.addElement("Nuage", "drawable/nuage2");
+        dbHelper.addElement("Tasse", "drawable/tasse");
+        dbHelper.addElement("Plaine", "drawable/plaine");
+        dbHelper.addElement("Vie", "drawable/vie");
+        dbHelper.addElement("Enfant", "drawable/enfant");
+
+
 
 
 
         dbHelper.addRelation("Feu", "Eau", "Vapeur");
         dbHelper.addRelation("Feu", "Vent", "Fumée");
+        dbHelper.addRelation("Feu", "Terre", "Lave");
         dbHelper.addRelation("Eau", "Terre", "Boue");
         dbHelper.addRelation("Eau", "Vent", "Vague");
+        dbHelper.addRelation("Terre", "Terre", "Roche");
         dbHelper.addRelation("Terre", "Vent", "Poussière");
-
-
-
-        //new ajout
-        dbHelper.addRelation("Feu", "Terre", "Roche");
-        dbHelper.addRelation("Feu", "Feu", "Feu Follet");
-        dbHelper.addRelation("Terre", "Terre", "Pierre");
-        dbHelper.addRelation("Eau", "Eau", "Océan");
-        dbHelper.addRelation("Eau", "Roche", "Argile");
-        dbHelper.addRelation("Feu", "Boue", "Fumée");
-        dbHelper.addRelation("Terre", "Vapeur", "Géysère");
-        dbHelper.addRelation("Roche", "Eau", "Rivière");
-        dbHelper.addRelation("Eau", "Pierre", "Sable");
-        dbHelper.addRelation("Terre", "Fumée", "Cendres");
-        dbHelper.addRelation("Roche", "Feu", "Lave");
+        dbHelper.addRelation("Vapeur", "Vent", "Nuage");
+        dbHelper.addRelation("Vapeur", "Terre", "Pluie");
+        dbHelper.addRelation("Vapeur", "Eau", "Pluie");
+        dbHelper.addRelation("Pluie", "Pluie", "Orage");
+        dbHelper.addRelation("Fumée", "Eau", "Nuage");
+        dbHelper.addRelation("Fumée", "Terre", "Poussière");
+        dbHelper.addRelation("Lave", "Eau", "Obsidienne");
+        dbHelper.addRelation("Lave", "Vent", "Cendres");
+        dbHelper.addRelation("Boue", "Vent", "Terre");
         dbHelper.addRelation("Boue", "Eau", "Marais");
-        dbHelper.addRelation("Vapeur", "Terre", "Nuage");
-        dbHelper.addRelation("Feu", "Océan", "Brume");
-        dbHelper.addRelation("Terre", "Lave", "Volcan");
-        dbHelper.addRelation("Eau", "Brume", "Brouillard");
-        dbHelper.addRelation("Lave", "Eau", "Rochers Chauds");
-        dbHelper.addRelation("Terre", "Océan", "Plage");
-        dbHelper.addRelation("Feu", "Nuage", "Éclair");
-        dbHelper.addRelation("Roche", "Océan", "Île");
-        dbHelper.addRelation("Terre", "Brume", "Rosée");
-        dbHelper.addRelation("Feu", "Sable", "Verre");
-        dbHelper.addRelation("Eau", "Géysère", "Cascade");
-        dbHelper.addRelation("Terre", "Île", "Montagne");
-        dbHelper.addRelation("Roche", "Cendres", "Pierres Précieuses");
-        dbHelper.addRelation("Eau", "Nuage", "Pluie");
-        dbHelper.addRelation("Terre", "Marais", "Tourbière");
-        dbHelper.addRelation("Feu", "Plage", "Sable Brûlant");
-        dbHelper.addRelation("Boue", "Géysère", "Magma");
-        dbHelper.addRelation("Roche", "Brume", "Falaise");
-        dbHelper.addRelation("Eau", "Verre", "Glace");
-        dbHelper.addRelation("Feu", "Cascade", "Évaporation");
-        dbHelper.addRelation("Terre", "Éclair", "Silex");
-        dbHelper.addRelation("Roche", "Rivière", "Lit de Rivière");
-        dbHelper.addRelation("Eau", "Rosée", "Gouttes");
-        dbHelper.addRelation("Boue", "Plage", "Côte");
-        dbHelper.addRelation("Roche", "Sable", "Gravier");
-        dbHelper.addRelation("Terre", "Glace", "Glacière");
-        dbHelper.addRelation("Roche", "Évaporation", "Sel");
-        dbHelper.addRelation("Eau", "Silex", "Moulin à Eau");
-        dbHelper.addRelation("Terre", "Gouttes", "Source");
-        dbHelper.addRelation("Roche", "Volcan", "Obsidienne");
-        dbHelper.addRelation("Feu", "Gravier", "Scories");
-        dbHelper.addRelation("Terre", "Cascade", "Torrent");
-        dbHelper.addRelation("Roche", "Montagne", "Sommet");
-        dbHelper.addRelation("Eau", "Plage", "Rivage");
-        dbHelper.addRelation("Terre", "Source", "Ruisseau");
-        dbHelper.addRelation("Roche", "Lit de Rivière", "Gisement");
+        dbHelper.addRelation("Vague", "Tornade", "Cyclone");
+        dbHelper.addRelation("Océan", "Tornade", "Cyclone");
+        dbHelper.addRelation("Eau", "Vague", "Océan");
+        dbHelper.addRelation("Eau", "Eau", "Océan");
+        dbHelper.addRelation("Poussière", "Tornade", "Tempête");
+        dbHelper.addRelation("Eau", "Roche", "Sable");
+        dbHelper.addRelation("Eau", "Fumée", "Brouillard");
+        dbHelper.addRelation("Sable", "Sable", "Désert");
+        dbHelper.addRelation("Sable", "Vent", "Dune");
+        dbHelper.addRelation("Dune", "Tornade", "Tempête de sable");
+        dbHelper.addRelation("Désert", "Tornade", "Tempête de sable");
+        dbHelper.addRelation("Désert", "Sable", "Dune");
+        dbHelper.addRelation("Désert", "Eau", "Oasis");
+        dbHelper.addRelation("Désert", "Roche", "Canyon");
+        dbHelper.addRelation("Vent", "Vent", "Tornade");
+        dbHelper.addRelation("Feu", "Feu", "Soleil");
+        dbHelper.addRelation("Soleil", "Pluie", "Arc-en-ciel");
+        dbHelper.addRelation("Soleil", "Arc-en-ciel", "Licorne");
+        dbHelper.addRelation("Neige", "Terre", "Gel");
+        dbHelper.addRelation("Gel", "Feu", "Eau");
+        dbHelper.addRelation("Gel", "Pluie", "Grêle");
+        dbHelper.addRelation("Licorne", "Vent", "Pégase");
+        dbHelper.addRelation("Sable", "Feu", "Verre");
+        dbHelper.addRelation("Verre", "Soleil", "Arc-en-ciel");
+        dbHelper.addRelation("Roche", "Terre", "Plaine");
+        dbHelper.addRelation("Plaine", "Eau", "Plante");
+        dbHelper.addRelation("Plante", "Feu", "Cendres");
+        dbHelper.addRelation("Plante", "Plante", "Arbre");
+        dbHelper.addRelation("Arbre", "Feu", "Charbon");
+        dbHelper.addRelation("Arbre", "Vent", "Feuille");
+        dbHelper.addRelation("Feuille", "Feu", "Cendres");
+        dbHelper.addRelation("Arbre", "Arbre", "Forêt");
+        dbHelper.addRelation("Forêt", "Feu", "Incendie");
+        dbHelper.addRelation("Forêt", "Vent", "Feuille");
+        dbHelper.addRelation("Forêt", "Eau", "Rivière");
+        dbHelper.addRelation("Rivière", "Rivière", "Fleuve");
+        dbHelper.addRelation("Fleuve", "Fleuve", "Océan");
+        dbHelper.addRelation("Forêt", "Boue", "Mangrove");
+        dbHelper.addRelation("Mangrove", "Eau", "Marais");
+        dbHelper.addRelation("Forêt", "Marais", "Mangrove");
+        dbHelper.addRelation("Plante", "Licorne", "Vie");
+        dbHelper.addRelation("Arbre", "Licorne", "Vie");
+        dbHelper.addRelation("Vie", "Vent", "Oiseau");
+        dbHelper.addRelation("Vie", "Eau", "Poisson");
+        dbHelper.addRelation("Vie", "Désert", "Eléphant");
+        dbHelper.addRelation("Vie", "Feu", "Homme");
+        dbHelper.addRelation("Vie", "Vie", "Amour");
+        dbHelper.addRelation("Amour", "Feu", "Passion");
+        dbHelper.addRelation("Amour", "Eau", "Vie");
+        dbHelper.addRelation("Amour", "Passion", "Sexe");
+        dbHelper.addRelation("Sexe", "Vie", "Enfant");
+        dbHelper.addRelation("Enfant", "Enfant", "Famille");
+        dbHelper.addRelation("Homme", "Plaine", "Agriculture");
+        dbHelper.addRelation("Famille", "Agriculture", "Société");
+        dbHelper.addRelation("Société", "Société", "Civilisation");
+        dbHelper.addRelation("Civilisation", "Civilisation", "Culture");
+        dbHelper.addRelation("Culture", "Culture", "Art");
+        dbHelper.addRelation("Art", "Vent", "Musique");
+        dbHelper.addRelation("Art", "Eau", "Peinture");
+        dbHelper.addRelation("Boue", "Plante", "Vase");
+        dbHelper.addRelation("Art", "Vase", "Céramique");
+        dbHelper.addRelation("Céramique", "Feu", "Poterie");
+        dbHelper.addRelation("Poterie", "Eau", "Bol");
+        dbHelper.addRelation("Bol", "Bol", "Tasse");
+        dbHelper.addRelation("Tasse", "Tasse", "Thé");
+        dbHelper.addRelation("Thé", "Société", "Angleterre");
+        dbHelper.addRelation("Thé", "Culture", "Cérémonie");
+        dbHelper.addRelation("Cérémonie", "Art", "Danse");
+        dbHelper.addRelation("Danse", "Musique", "Spectacle");
+        dbHelper.addRelation("Spectacle", "Spectacle", "Théâtre");
+        dbHelper.addRelation("Lave", "Plaine", "Volcan");
+        dbHelper.addRelation("Volcan", "Océan", "Ile");
+        dbHelper.addRelation("Ile", "Ile", "Archipel");
+        dbHelper.addRelation("Archipel", "Archipel", "Continent");
+        dbHelper.addRelation("Continent", "Océan", "Planète");
+        dbHelper.addRelation("Planète", "Soleil", "Système solaire");
+        dbHelper.addRelation("Système solaire", "Système solaire", "Galaxie");
+        dbHelper.addRelation("Galaxie", "Galaxie", "Univers");
+        dbHelper.addRelation("Univers", "Univers", "Dieu");
+        dbHelper.addRelation("Dieu", "Vie", "Homme");
+        dbHelper.addRelation("Planète", "Désert", "Mars");
+        dbHelper.addRelation("Planète", "Eau", "Neptune");
+        dbHelper.addRelation("Neptune", "Pluie", "Neige");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

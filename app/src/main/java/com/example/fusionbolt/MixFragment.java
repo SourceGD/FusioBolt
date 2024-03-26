@@ -79,6 +79,8 @@ public class MixFragment extends Fragment {
 
 
         ProgressBar progressBar = binding.progressBar;
+        progressBar.setMax(elements.size());
+        progressBar.setProgress(usedElements.size());
 
         progressBar.setOnClickListener(new View.OnClickListener() {
             @Override
