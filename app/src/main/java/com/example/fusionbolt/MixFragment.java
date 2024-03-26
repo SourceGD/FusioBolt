@@ -78,6 +78,8 @@ public class MixFragment extends Fragment {
         displayUsedElements();
 
 
+
+
         ProgressBar progressBar = binding.progressBar;
         progressBar.setMax(elements.size());
         progressBar.setProgress(usedElements.size());
@@ -149,6 +151,12 @@ public class MixFragment extends Fragment {
                 }
             }
         });
+
+        TextView tvCredits = view.findViewById(R.id.tvCredits);
+
+        int currentCredits = dbHelper.getCredits();
+
+        tvCredits.setText(String.valueOf(currentCredits));
 
         if(usedElements.size() == 4){
             ImageView characterImageView = view.findViewById(R.id.characterImageView);
@@ -389,6 +397,9 @@ public class MixFragment extends Fragment {
                     if(!usedElements.contains(newElement)){
                         dbHelper.setElementUsed(newElement.getName());
                         addImageViewDynamically(newElement);
+                        dbHelper.addCredits(10);
+                        int currentCredits = dbHelper.getCredits();
+                        binding.tvCredits.setText(String.valueOf(currentCredits));
                     }
                     onDisplay.put(newElement, nouvau);
                 }
@@ -490,6 +501,10 @@ public class MixFragment extends Fragment {
                     if(!usedElements.contains(newElement)){
                         dbHelper.setElementUsed(newElement.getName());
                         addImageViewDynamically(newElement);
+                        dbHelper.addCredits(10);
+                        int currentCredits = dbHelper.getCredits();
+                        binding.tvCredits.setText(String.valueOf(currentCredits));
+
                     }
                     onDisplay.put(newElement, nouvau);
                 }

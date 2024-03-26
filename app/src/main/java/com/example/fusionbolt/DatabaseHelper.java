@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "elementsDB";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 8;
 
     // Table Elements
     private static final String TABLE_ELEMENTS = "elements";
@@ -44,7 +44,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY (" + COLUMN_CHILD_NAME + ") REFERENCES " + TABLE_ELEMENTS + "(" + COLUMN_NAME + "),"
             + "FOREIGN KEY (" + COLUMN_RESULT_NAME + ") REFERENCES " + TABLE_ELEMENTS + "(" + COLUMN_NAME + ")" + ")";
 
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -53,6 +52,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_ELEMENTS);
         db.execSQL(CREATE_TABLE_RELATIONS);
+        db.execSQL("CREATE TABLE IF NOT EXISTS user_credits (" +
+                "id INTEGER PRIMARY KEY," +
+                "credits INTEGER DEFAULT 0" + ")");
+        ContentValues values = new ContentValues();
+        values.put("id", 1);
+        values.put("credits", 0);
+        db.insert("user_credits", null, values);
+
     }
 
 
@@ -139,7 +146,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_ELEMENTS, null, null);
         db.delete(TABLE_RELATIONS, null, null);
+        ContentValues values = new ContentValues();
+        values.put("credits", 0); // Définit les crédits à 0
+        db.update("user_credits", values, "id = ?", new String[]{"1"});
     }
+
     public List<Element> getAllElements() {
         List<Element> elements = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -176,6 +187,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return relations;
     }
+    public void addCredits(int creditsToAdd) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE user_credits SET credits = credits + " + creditsToAdd + " WHERE id = 1");
+    }
+    public boolean spendCredits(int creditsToSpend) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            Cursor cursor = db.rawQuery("SELECT credits FROM user_credits WHERE id = 1", null);
+            if (cursor.moveToFirst()) {
+                int currentCredits = cursor.getInt(0);
+                if (currentCredits >= creditsToSpend) {
+                    db.execSQL("UPDATE user_credits SET credits = credits - " + creditsToSpend + " WHERE id = 1");
+                    db.setTransactionSuccessful();
+                    return true;
+                }
+            }
+            cursor.close();
+        } finally {
+            db.endTransaction();
+        }
+        return false;
+    }
+    public int getCredits() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT credits FROM user_credits WHERE id = 1", null);
+        if (cursor.moveToFirst()) {
+            int credits = cursor.getInt(0);
+            cursor.close();
+            return credits;
+        }
+        return 0;
+    }
+
+    public String getOneParentName(String elementName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String parentName = "";
+        String query = "SELECT " + COLUMN_PARENT_NAME + " FROM " + TABLE_RELATIONS + " WHERE " + COLUMN_RESULT_NAME + " = ? LIMIT 1";
+        Cursor cursor = db.rawQuery(query, new String[]{elementName});
+        if (cursor.moveToFirst()) {
+            parentName = cursor.getString(cursor.getColumnIndex(COLUMN_PARENT_NAME));
+        }
+        cursor.close();
+
+        return parentName;
+    }
+
+
 
 
 

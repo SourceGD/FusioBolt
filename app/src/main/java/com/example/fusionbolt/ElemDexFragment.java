@@ -1,4 +1,5 @@
 package com.example.fusionbolt;
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -41,6 +43,8 @@ public class ElemDexFragment extends Fragment {
         List<Element> elements = dbHelper.getAllElementsWithOrder();
 
         for (Element element : elements) {
+            int credits = dbHelper.getCredits();
+            String creditsText = String.valueOf(credits);
             LinearLayout linearLayout = new LinearLayout(getContext());
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             GridLayout.LayoutParams linearParams = new GridLayout.LayoutParams();
@@ -58,21 +62,6 @@ public class ElemDexFragment extends Fragment {
             );
             imageView.setLayoutParams(imageParams);
 
-            if (!element.isUsed()) {
-                imageView.setColorFilter(Color.GRAY);
-            } else {
-                imageView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            dbHelper.updateElementAccessTime(element.getName());
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-            }
-
             TextView textView = new TextView(getContext());
             textView.setText(element.getName());
             LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
@@ -88,6 +77,63 @@ public class ElemDexFragment extends Fragment {
 
             textParams.gravity = Gravity.CENTER_HORIZONTAL;
             textView.setLayoutParams(textParams);
+
+            if (!element.isUsed()) {
+                textView.setVisibility(View.GONE);
+
+            }
+
+            if (!element.isUsed()) {
+                imageView.setColorFilter(Color.GRAY);
+                imageView.setOnClickListener(v -> {
+                    if(textView.getVisibility() != View.VISIBLE) {
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Débloquer nom d'élément")
+                                .setMessage("Voulez-vous dépenser 20 crédits pour révéler le nom de cet élement ? \n\n (Vous avez actuellement " + creditsText + " crédits)")
+                                .setPositiveButton("Oui", (dialog, which) -> {
+                                    if (dbHelper.spendCredits(20)) {
+                                        textView.setVisibility(View.VISIBLE);
+
+                                    } else {
+                                        Toast.makeText(getContext(), "Crédits insuffisants.", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("Non", null)
+                                .show();
+                    }else{
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Débloquer un des parents")
+                                .setMessage("Voulez-vous dépenser 50 crédits pour révéler un des parents de cet élément ? \n\n (Vous avez actuellement " + creditsText + " crédits)")
+                                .setPositiveButton("Oui", ((dialog1, which1) -> {
+                                    if (dbHelper.spendCredits(50)) {
+                                        String parentName = dbHelper.getOneParentName(element.getName());
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                        builder.setMessage(parentName);
+                                        builder.show();
+                                    } else {
+                                        Toast.makeText(getContext(), "Crédits insuffisants.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }))
+                                .setNegativeButton("Non", null)
+                                .show();
+
+                    }
+                });
+
+            } else {
+                imageView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            dbHelper.updateElementAccessTime(element.getName());
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+            }
+
+
 
             linearLayout.addView(imageView);
             linearLayout.addView(textView);
