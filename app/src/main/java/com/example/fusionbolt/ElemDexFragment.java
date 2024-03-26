@@ -33,12 +33,12 @@ public class ElemDexFragment extends Fragment {
         gridLayout.setColumnCount(numberOfColumns);
 
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
-        int spacing = getResources().getDimensionPixelSize(R.dimen.grid_spacing); // Utilisez dimens pour l'espacement
+        int spacing = getResources().getDimensionPixelSize(R.dimen.grid_spacing);
         int padding = gridLayout.getPaddingLeft() + gridLayout.getPaddingRight();
         int imageWidth = (screenWidth - padding - (spacing * (numberOfColumns - 1))) / numberOfColumns;
 
         DatabaseHelper dbHelper = new DatabaseHelper(getContext());
-        List<Element> elements = dbHelper.getAllElements();
+        List<Element> elements = dbHelper.getAllElementsWithOrder();
 
         for (Element element : elements) {
             LinearLayout linearLayout = new LinearLayout(getContext());

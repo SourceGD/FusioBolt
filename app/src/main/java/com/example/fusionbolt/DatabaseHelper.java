@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_ELEMENTS = "elements";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_LOGO = "logo";
-    private static final String COLUMN_USED = "used"; // Colonne boolean pour indiquer si un élément a été utilisé
+    private static final String COLUMN_USED = "used";
 
     // Table Relations
     private static final String TABLE_RELATIONS = "relations";
@@ -70,7 +70,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, name);
         values.put(COLUMN_LOGO, logo);
-        // Le champ "used" n'est pas spécifié ici, donc il utilisera la valeur par défaut
         db.insert(TABLE_ELEMENTS, null, values);
     }
 
@@ -86,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateElementAccessTime(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_LAST_ACCESSED, System.currentTimeMillis()); // Utiliser le timestamp actuel
+        values.put(COLUMN_LAST_ACCESSED, System.currentTimeMillis());
         db.update(TABLE_ELEMENTS, values, COLUMN_NAME + " = ?", new String[]{name});
     }
 
@@ -104,6 +103,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return elements;
     }
+    public List<Element> getAllElementsWithOrder() {
+        List<Element> elements = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM elements ORDER BY used DESC, name ASC";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String logo = cursor.getString(cursor.getColumnIndex("logo"));
+                boolean used = cursor.getInt(cursor.getColumnIndex("used")) > 0;
+
+                Element element = new Element(name, logo, used);
+                elements.add(element);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return elements;
+    }
+
+
 
 
 
