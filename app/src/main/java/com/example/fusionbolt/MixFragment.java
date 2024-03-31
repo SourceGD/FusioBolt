@@ -598,7 +598,6 @@ public class MixFragment extends Fragment {
 
 
 
-
     @SuppressLint("ClickableViewAccessibility")
     private void setupTouchListener(ImageView imageView) {
         imageView.setOnTouchListener(new View.OnTouchListener() {
