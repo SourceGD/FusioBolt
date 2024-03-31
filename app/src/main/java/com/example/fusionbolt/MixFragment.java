@@ -1,6 +1,9 @@
 package com.example.fusionbolt;
 
 import android.animation.Animator;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.animation.TranslateAnimation;
 import android.view.animation.CycleInterpolator;
 
@@ -45,6 +48,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -87,7 +91,7 @@ public class MixFragment extends Fragment {
 
         displayUsedElements();
 
-        LinearLayout constraintLayout = binding.MixContainer;
+        LinearLayout constraintLayout = binding.mixContainer;
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(5000);
         animationDrawable.setExitFadeDuration(7500);
@@ -393,6 +397,9 @@ public class MixFragment extends Fragment {
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
                 } else {
+
+                    switchToSuccessBackgroundAnimation();
+
                     if(displayed >= 7){
                         removeLeftmostImageView(binding.linearLayoutContainer);
                     }
@@ -497,6 +504,9 @@ public class MixFragment extends Fragment {
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
                 } else {
+
+                    switchToSuccessBackgroundAnimation();
+
                     if(displayed >= 7){
                         removeLeftmostImageView(binding.linearLayoutContainer);
                     }
@@ -557,10 +567,10 @@ public class MixFragment extends Fragment {
 
     private void displayUsedElements() {
         LinearLayout linearLayout = binding.linearLayoutContainer;
-        linearLayout.removeAllViews(); // Nettoyer pour éviter les doublons
+        linearLayout.removeAllViews();
 
         for (Element element : usedElements) {
-            if(element.isUsed() && displayed <= 8) { // Vérifiez si l'élément est utilisé
+            if(element.isUsed() && displayed <= 8) {
                 displayed++;
                 ImageView imageView = new ImageView(getContext());
                 int resId = getResources().getIdentifier(element.getLogo(), "drawable", getContext().getPackageName());
@@ -665,6 +675,34 @@ public class MixFragment extends Fragment {
 
         view.animate().x(originalX + deltaX).y(originalY + deltaY).setDuration(500).start();
     }
+
+    private void switchToSuccessBackgroundAnimation() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                LinearLayout backgroundContainer = binding.mixContainer;
+
+
+                AnimationDrawable successAnimation = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.succesbackanim);
+                backgroundContainer.setBackground(successAnimation);
+                successAnimation.setEnterFadeDuration(400);
+                successAnimation.setExitFadeDuration(600);
+                successAnimation.start();
+
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AnimationDrawable animationDrawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.backanim);
+                        backgroundContainer.setBackground(animationDrawable);
+                        animationDrawable.setEnterFadeDuration(5000);
+                        animationDrawable.setExitFadeDuration(7500);
+                        animationDrawable.start();
+                    }
+                }, 2000);
+            }
+        });
+    }
+
 
 
 
