@@ -1,6 +1,9 @@
 package com.example.fusionbolt;
 
 import android.animation.Animator;
+import android.view.animation.TranslateAnimation;
+import android.view.animation.CycleInterpolator;
+
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Path;
@@ -33,6 +36,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.AnimationSet;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -518,6 +524,9 @@ public class MixFragment extends Fragment {
                     }
                     onDisplay.put(newElement, nouvau);
                 }
+            }else {
+                moveAwayView(draggedImageView);
+                shakeView(draggedImageView);
             }
         }
     }
@@ -639,6 +648,25 @@ public class MixFragment extends Fragment {
     private void loadElementsFromDatabase() {
         elements = (ArrayList<Element>) dbHelper.getAllElements();
     }
+
+    private void shakeView(View view) {
+        Animation shake = new TranslateAnimation(-10, 10, 0, 0);
+        shake.setDuration(500);
+        shake.setInterpolator(new CycleInterpolator(7));
+        view.startAnimation(shake);
+    }
+
+    private void moveAwayView(View view) {
+        float originalX = view.getX();
+        float originalY = view.getY();
+
+        float deltaX = (float) (Math.random() - 0.5) * 500;
+        float deltaY = (float) (Math.random() - 0.5) * 500;
+
+        view.animate().x(originalX + deltaX).y(originalY + deltaY).setDuration(500).start();
+    }
+
+
 
 
 
