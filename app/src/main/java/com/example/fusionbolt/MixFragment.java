@@ -341,7 +341,7 @@ public class MixFragment extends Fragment {
     }
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     private void handleDropEvent(ImageView draggedImageView, float x, float y) {
         Element droppedElement = findElementByName((String) draggedImageView.getTag());
 
@@ -400,6 +400,7 @@ public class MixFragment extends Fragment {
                         dbHelper.addCredits(10);
                         int currentCredits = dbHelper.getCredits();
                         binding.tvCredits.setText(String.valueOf(currentCredits));
+                        binding.decouverte.setText("Vous avez découvert : "+newElement.getName()+" !");
                     }
                     onDisplay.put(newElement, nouvau);
                 }
@@ -423,7 +424,7 @@ public class MixFragment extends Fragment {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     private void handleDropEvent2(ImageView draggedImageView, float x, float y){
 
         Element droppedElement = null;
@@ -504,6 +505,7 @@ public class MixFragment extends Fragment {
                         dbHelper.addCredits(10);
                         int currentCredits = dbHelper.getCredits();
                         binding.tvCredits.setText(String.valueOf(currentCredits));
+                        binding.decouverte.setText("Vous avez découvert : "+newElement.getName()+" !");
 
                     }
                     onDisplay.put(newElement, nouvau);
