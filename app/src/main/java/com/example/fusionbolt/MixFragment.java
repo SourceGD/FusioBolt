@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Path;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.animation.AnimatorListenerAdapter;
@@ -37,6 +38,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -73,11 +75,17 @@ public class MixFragment extends Fragment {
         loadusedElements();
 
 
+
+
         binding = FragmentMixBinding.inflate(inflater, container, false);
 
         displayUsedElements();
 
-
+        LinearLayout constraintLayout = binding.MixContainer;
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(7500);
+        animationDrawable.start();
 
 
         ProgressBar progressBar = binding.progressBar;

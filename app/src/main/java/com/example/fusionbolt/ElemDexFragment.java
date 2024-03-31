@@ -1,6 +1,7 @@
 package com.example.fusionbolt;
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,12 @@ public class ElemDexFragment extends Fragment {
         GridLayout gridLayout = view.findViewById(R.id.elements_grid);
         final int numberOfColumns = 4;
         gridLayout.setColumnCount(numberOfColumns);
+
+        FrameLayout constraintLayout = view.findViewById(R.id.elemdexlayout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(7500);
+        animationDrawable.start();
 
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
         int spacing = getResources().getDimensionPixelSize(R.dimen.grid_spacing);

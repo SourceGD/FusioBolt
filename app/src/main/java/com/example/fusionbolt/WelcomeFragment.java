@@ -1,5 +1,6 @@
 package com.example.fusionbolt;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.fusionbolt.databinding.FragmentWelcomeBinding;
 import com.example.fusionbolt.RulesFragment;
@@ -35,6 +38,14 @@ public class WelcomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentWelcomeBinding.inflate(inflater, container, false);
+
+
+        RelativeLayout constraintLayout = binding.welcomeLayout;
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(7500);
+        animationDrawable.start();
+
         return binding.getRoot();
     }
 
