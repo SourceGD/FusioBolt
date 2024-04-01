@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addElement("Vie", "drawable/vie");
         dbHelper.addElement("Enfant", "drawable/enfant");
 
+        dbHelper.addElement("Temps", "drawable/temps");
+
 
 
 
@@ -230,7 +232,32 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addRelation("Planète", "Eau", "Neptune");
         dbHelper.addRelation("Neptune", "Pluie", "Neige");
 
-
+        dbHelper.addRelation("Terre", "Vie", "Plante");
+        dbHelper.addRelation("Feu", "Musique", "Passion");
+        dbHelper.addRelation("Société", "Vie", "Civilisation");
+        dbHelper.addRelation("Pluie", "Société", "Agriculture");
+        dbHelper.addRelation("Société", "Danse", "Culture");
+        dbHelper.addRelation("Société", "Musique", "Culture");
+        dbHelper.addRelation("Société", "Peinture", "Culture");
+        dbHelper.addRelation("Lave", "Fumée", "Volcan");
+        dbHelper.addRelation("Planète", "Planète", "Système solaire");
+        dbHelper.addRelation("Arbre", "Marais", "Mangrove");
+        dbHelper.addRelation("Mangrove", "Mangrove", "Forêt");
+        dbHelper.addRelation("Désert", "Vent", "Tempête de sable");
+        dbHelper.addRelation("Sable", "Tornade", "Tempête de sable");
+        dbHelper.addRelation("Homme", "Vie", "Temps");
+        dbHelper.addRelation("Temps", "Temps", "Temps");
+        dbHelper.addRelation("Temps", "Enfant", "Homme");
+        dbHelper.addRelation("Temps", "Plante", "Arbre");
+        dbHelper.addRelation("Temps", "Lave", "Obsidienne");
+        dbHelper.addRelation("Temps", "Boue", "Roche");
+        dbHelper.addRelation("Grêle", "Feu", "Eau");
+        dbHelper.addRelation("Société", "Temps", "Civilisation");
+        dbHelper.addRelation("Plaine", "Rivière", "Agriculture");
+        dbHelper.addRelation("Plaine", "Pluie", "Agriculture");
+        dbHelper.addRelation("Plaine", "Plante", "Agriculture");
+        dbHelper.addRelation("Famille", "Famille", "Société");
+        dbHelper.addRelation("Poussière", "Eau", "Boue");
 
 
 
