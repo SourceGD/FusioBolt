@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addElement("Plaine", "drawable/plaine");
         dbHelper.addElement("Vie", "drawable/vie");
         dbHelper.addElement("Enfant", "drawable/enfant");
-
         dbHelper.addElement("Temps", "drawable/temps");
 
 
@@ -142,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addRelation("Vapeur", "Terre", "Pluie");
         dbHelper.addRelation("Vapeur", "Eau", "Pluie");
         dbHelper.addRelation("Pluie", "Pluie", "Orage");
-        dbHelper.addRelation("Fumée", "Eau", "Nuage");
+        dbHelper.addRelation("Eau", "Fumée", "Brouillard");
         dbHelper.addRelation("Fumée", "Terre", "Poussière");
         dbHelper.addRelation("Lave", "Eau", "Obsidienne");
         dbHelper.addRelation("Lave", "Vent", "Cendres");
@@ -154,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addRelation("Eau", "Eau", "Océan");
         dbHelper.addRelation("Poussière", "Tornade", "Tempête");
         dbHelper.addRelation("Eau", "Roche", "Sable");
-        dbHelper.addRelation("Eau", "Fumée", "Brouillard");
         dbHelper.addRelation("Sable", "Sable", "Désert");
         dbHelper.addRelation("Sable", "Vent", "Dune");
         dbHelper.addRelation("Dune", "Tornade", "Tempête de sable");
