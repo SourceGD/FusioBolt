@@ -634,6 +634,7 @@ public class MixFragment extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         initialTouchX = (int)event.getX();
                         initialTouchY = (int)event.getY();
+                        shakeImage((ImageView) v);
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         float deltaX = event.getX() - initialTouchX;
@@ -641,7 +642,6 @@ public class MixFragment extends Fragment {
                         float newX = imageView.getX() + deltaX;
                         float newY = imageView.getY() + deltaY;
 
-                        shakeImage((ImageView) v);
                         imageView.setX(newX);
                         imageView.setY(newY);
 
