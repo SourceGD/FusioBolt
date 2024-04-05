@@ -2,6 +2,7 @@ package com.example.fusionbolt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -24,15 +25,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
 
+
         dbHelper = new DatabaseHelper(this);
+
         dbHelper.clearDatabase();
-        insertInitialData();
+
+        if(dbHelper.getAllElements().isEmpty()) insertInitialData();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent svc = new Intent(this, BackgroundSoundService.class);
+        startService(svc);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (!isChangingConfigurations()) {
+            Intent svc = new Intent(this, BackgroundSoundService.class);
+            stopService(svc);
+        }
+    }
+
+
     private void insertInitialData() {
-        // Ajouter des éléments
 
         dbHelper.addElement("Feu", "drawable/feu");
         dbHelper.setElementUsed("Feu");
@@ -125,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addElement("Vie", "drawable/vie");
         dbHelper.addElement("Enfant", "drawable/enfant");
         dbHelper.addElement("Temps", "drawable/temps");
-
-
 
 
 

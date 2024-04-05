@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,22 +9,40 @@
     tools:context=".WelcomeFragment">
 
 
-
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="514dp"
+        android:layout_width="239dp"
+        android:layout_height="543dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="100dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/message"
-            android:layout_width="wrap_content"
+            android:layout_width="188dp"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
+            android:textColor="#FFD700"
+            android:shadowColor="@color/black"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="5"
             android:padding="30dp"
-            android:text="FusionMix"
+            android:text="@string/elemental_genesis"
+            android:fontFamily="@font/robotosb"
             android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/logotouch"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="24dp"
+            android:src="@drawable/feueau2" />
+
 
         <Button
             android:id="@+id/playButton"
@@ -42,6 +61,7 @@
             android:text="Version 0.2"
             android:textSize="20sp" />
 
+
     </LinearLayout>
 
     <Button
@@ -59,5 +79,11 @@
         android:text="ElemDex"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"/>
+
+    <ImageView
+        android:id="@+id/soundtouch"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/sound" />
 
 </RelativeLayout>

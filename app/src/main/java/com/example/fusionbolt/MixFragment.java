@@ -2,6 +2,7 @@ package com.example.fusionbolt;
 
 import android.animation.Animator;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.animation.TranslateAnimation;
@@ -87,7 +88,27 @@ public class MixFragment extends Fragment {
 
 
 
+
         binding = FragmentMixBinding.inflate(inflater, container, false);
+
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.success);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+
+        MediaPlayer mediaPlayer2 = MediaPlayer.create(getContext(), R.raw.success2);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+
+
 
         displayUsedElements();
 
@@ -141,6 +162,7 @@ public class MixFragment extends Fragment {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
                     v.startDragAndDrop(null, shadowBuilder, v, 0);
+                    shakeImage((ImageView) v);
                     return true;
                 } else {
                     return false;
@@ -394,9 +416,13 @@ public class MixFragment extends Fragment {
                     ImageView imageView = (ImageView) binding.imageContainer.findViewById(idd);
                     Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
                     imageView.startAnimation(fadeInAnimation);
+
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
+                    playSoundEffect();
                 } else {
+
+                    playSoundEffect2();
 
                     switchToSuccessBackgroundAnimation();
 
@@ -503,7 +529,10 @@ public class MixFragment extends Fragment {
                     imageView.startAnimation(fadeInAnimation);
                     setupTouchListener(imageView);
                     onDisplay.put(newElement, updaton);
+                    playSoundEffect();
                 } else {
+
+                    playSoundEffect2();
 
                     switchToSuccessBackgroundAnimation();
 
@@ -576,8 +605,6 @@ public class MixFragment extends Fragment {
                 int resId = getResources().getIdentifier(element.getLogo(), "drawable", getContext().getPackageName());
                 if (resId != 0) {
                     imageView.setImageResource(resId);
-
-                    // Configuration des LayoutParams avec un poids
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                             0,
                             LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -614,6 +641,7 @@ public class MixFragment extends Fragment {
                         float newX = imageView.getX() + deltaX;
                         float newY = imageView.getY() + deltaY;
 
+                        shakeImage((ImageView) v);
                         imageView.setX(newX);
                         imageView.setY(newY);
 
@@ -700,6 +728,33 @@ public class MixFragment extends Fragment {
                 }, 2000);
             }
         });
+    }
+
+    private void playSoundEffect() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.success);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+        mediaPlayer.start();
+    }
+
+    private void playSoundEffect2() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.success2);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+        mediaPlayer.start();
+    }
+
+    private void shakeImage(ImageView imageView) {
+        Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+        imageView.startAnimation(shake);
     }
 
 

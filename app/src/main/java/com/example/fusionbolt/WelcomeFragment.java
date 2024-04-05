@@ -1,5 +1,6 @@
 package com.example.fusionbolt;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -25,6 +27,8 @@ import com.example.fusionbolt.ElemDexFragment;
 public class WelcomeFragment extends Fragment {
 
     private FragmentWelcomeBinding binding;
+
+    private boolean isPlaying = true;
     public static WelcomeFragment newInstance() {
         return new WelcomeFragment();
     }
@@ -54,6 +58,24 @@ public class WelcomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.playButton.setEnabled(true);
 
+        ImageView soundImageView = view.findViewById(R.id.soundtouch);
+        soundImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPlaying) {
+                    Intent svc = new Intent(getActivity(), BackgroundSoundService.class);
+                    getActivity().stopService(svc);
+                    soundImageView.setImageResource(R.drawable.sound2);
+                } else {
+                    Intent svc = new Intent(getActivity(), BackgroundSoundService.class);
+                    getActivity().startService(svc);
+
+                    soundImageView.setImageResource(R.drawable.sound);
+                }
+                isPlaying = !isPlaying;
+            }
+        });
+
 
         binding.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,11 +89,23 @@ public class WelcomeFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+        binding.logotouch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Antoinejt", "cljjtic");
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                MixFragment mix = new MixFragment();
+                fragmentTransaction.replace(R.id.fragment_container_view_uy, mix);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         binding.rules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("Antdrgrgoine", "cldrggic");
+                Log.d("Antdrgrgt'oine", "cldrggtc");
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RulesFragment rulesFragment = new RulesFragment();
