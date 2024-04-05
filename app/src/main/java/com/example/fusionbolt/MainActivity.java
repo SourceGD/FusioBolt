@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        dbHelper.clearDatabase();
-
         if(dbHelper.getAllElements().isEmpty()) insertInitialData();
     }
 
